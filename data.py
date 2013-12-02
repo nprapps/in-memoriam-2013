@@ -22,8 +22,14 @@ FIELDNAMES = [
 ]
 
 class Person(object):
-
+    """
+    Represents a single person from in memoriam.
+    """
     def __init__(self, **kwargs):
+        """
+        Should handle any data cleanup.
+        Loads each keyword argument as a class attribute.
+        """
         for key, value in kwargs.items():
             value = unicode(value.decode('utf-8')).strip()
             setattr(self, key, value)
