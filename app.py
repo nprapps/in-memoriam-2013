@@ -19,7 +19,12 @@ def index():
     """
     Example view demonstrating rendering a simple HTML page.
     """
-    return render_template('index.html', **make_context())
+    context = make_context()
+
+    with open('www/live-data/in-memoriam.json', 'rb') as readfile:
+        context['PEOPLE'] = readfile.read()
+
+    return render_template('index.html', **context)
 
 
 # Render LESS files on-demand

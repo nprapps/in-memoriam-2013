@@ -2,7 +2,9 @@
 
 import csv
 import json
+import time
 
+from dateutil import parser
 import requests
 
 FIELDNAMES = [
@@ -32,12 +34,20 @@ class Person(object):
         """
         for key, value in kwargs.items():
             value = unicode(value.decode('utf-8')).strip()
+
+            if key == 'date_of_death':
+                try:
+                    value = parser.parse(value)
+                    value = time.mktime(value.timetuple())
+                except TypeError:
+                    pass
             setattr(self, key, value)
 
 def init():
     get_csv()
     people = parse_csv()
     write_json(people)
+    load_photos(people)
 
 def get_csv():
     """
@@ -61,6 +71,8 @@ def parse_csv():
     with open('data/in-memoriam.csv', 'rb') as readfile:
         people = list(csv.DictReader(readfile, fieldnames=FIELDNAMES))
 
+    people = people[1:]
+
     print "Parsing %s people." % len(people)
 
     for person in people:
@@ -69,15 +81,23 @@ def parse_csv():
 
     return payload
 
-def write_json(payload):
+def write_json(people):
     """
     Writes the payload to JSON.
     Lord help you if it's not a list or a dictionary.
     """
-    print "Writing %s people to JSON." % len(payload)
+    print "Writing %s people to JSON." % len(people)
 
     with open('www/live-data/in-memoriam.json', 'wb') as writefile:
-        writefile.write(json.dumps(payload))
+        writefile.write(json.dumps(people))
+
+def load_photos(people):
+    for person in people:
+
+        r = requests.get('http://apps.npr.org/in-memoriam-2013/img/people/originals/%s' % person['photo_filename'])
+
+        with open('www/img/people/unversioned/%s' % person['photo_filename'], 'wb') as writefile:
+            writefile.write(r.content)
 
 if __name__ == "__main__":
     init()
