@@ -103,6 +103,8 @@ A flask app is used to run the project locally. It will automatically recompile 
 
 ```
 workon in-memoriam-2013
+fab update_copy
+fab bootstrap
 python app.py
 ```
 
@@ -231,7 +233,7 @@ To install your crontab set `INSTALL_CRONTAB` to `True` in `app_config.py`. Cron
 Install web services
 ---------------------
 
-Web services are configured in the `confs/` folder. 
+Web services are configured in the `confs/` folder.
 
 Running ``fab setup_server`` will deploy your confs if you have set ``DEPLOY_TO_SERVERS`` and ``DEPLOY_WEB_SERVICES`` both to ``True`` at the top of ``app_config.py``.
 
