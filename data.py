@@ -2,9 +2,7 @@
 
 import csv
 import json
-import time
 
-from dateutil import parser
 import requests
 
 FIELDNAMES = [
@@ -33,17 +31,14 @@ class Person(object):
         Loads each keyword argument as a class attribute.
         """
         for key, value in kwargs.items():
-            value = unicode(value, errors='replace').strip()
+            try:
+                value = unicode(value, errors='replace').strip()
+
+            except TypeError:
+                value = int(value)
 
             if key == 'start_time_in_mix':
                 value = int(value)
-
-            if key == 'date_of_death':
-                try:
-                    value = parser.parse(value)
-                    value = time.mktime(value.timetuple())
-                except TypeError:
-                    pass
 
             setattr(self, key, value)
 
@@ -79,7 +74,8 @@ def parse_csv():
 
     print 'Parsing %s people.' % len(people)
 
-    for person in people:
+    for idx, person in enumerate(people):
+        person['id'] = idx
         p = Person(**person)
         payload.append(p.__dict__)
 

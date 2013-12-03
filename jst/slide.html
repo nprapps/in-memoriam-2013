@@ -1,0 +1,23 @@
+<div id="panel<%= artist.id %>" class="panel">
+    <div class="panel-bg" style="background-image: url('img/mugs/<%= artist.photo_filename %>_<%= image_width %>.jpg');"> </div>
+    <div class="panel-description">
+        <h2><%= artist.first_name %> <%= artist.last_name %></h2>
+        <% if (artist.date_of_birth != '') { %>
+        <p class="dates"><%= artist.date_of_birth %> &mdash; <%= artist.date_of_death %></p>
+        <% } %>
+        <p class="desc"><strong><%= artist.also_known_as %></strong> <%= artist.description %></p>
+
+        <% if (artist.obit_URL.length > 2) { %>
+        <p class="npr-obit">&rsaquo; <a href="<%= artist.obit_URL %>" target="_blank">NPR Remembrance: Audio, interviews, photos</a></p>
+        <% } %>
+
+        <% if (artist.artist_page_seamus_id.length > 2) { %>
+        <p class="npr-artist">&rsaquo; <a href="http://www.npr.org/artists/<%= artist.artist_page_seamus_id %>" target="_blank">NPR Artist Page</a></p>
+        <% } %>
+
+        <% if (artist.song_name.length > 2) { %>
+        <p class="now-playing">Now Playing: <%= artist.song_name %></p>
+        <% } %>
+        <p class="photo-credit">Photo: <%= artist.photo_caption %> <%= artist.photo_credit %></p>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="browse<%= id %> browse-artist">
+    <% if (image_name) { %>
+    <a href="javascript:;" class="slidelink" data-id="<%= id %>">
+        <img src="img/mugs/<%= artist.photo_filename %>_120.jpg" />
+        <h2><%= artist.first_name %> <%= artist.last_name %></h2>
+    </a>
+    <% } %>
+
+    <% if (artist.obit_URL.length > 2) { %>
+    <p class="npr-obit"><a href="<%= artist.obit_URL %>" target="_blank">More from our archives &rsaquo;</a></p>
+    <% } %>
+</div>
