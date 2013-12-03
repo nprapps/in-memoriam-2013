@@ -1,5 +1,6 @@
 @import "less/lib/bootstrap/bootstrap";
 @import "less/lib/font-awesome/font-awesome";
+@import "less/lib/prefixer";
 
 // Global variables
 @img-root: "../img";
@@ -71,7 +72,7 @@ a.btn.btn-blue {
 		color: #fff;
 		background-color: #7598c9;
 		background-position: auto;
-		-webkit-transition: none; -moz-transition: none; -o-transition: none; transition: none;
+		.transition(none);
 	}
 }
 */
@@ -147,7 +148,7 @@ a.btn.btn-blue {
     width: 40px; 
     height: @audio-height;
     border-right: 1px solid @nav-border;
-    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none;
+    .user-select(none);
 
     i {
         line-height: @audio-height;
@@ -308,22 +309,26 @@ a.btn.btn-blue {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 0; left: 0;
-    -webkit-background-size:cover; -moz-background-size:cover; background-size:cover;
+    top: 0; 
+    left: 0;
+    .background-size(cover);
     background-position: 50% 50%;
     background-repeat: no-repeat;
-}
-#panel15 .panel-bg,
-#panel19 .panel-bg,
-#panel20 .panel-bg,
-#panel24 .panel-bg {
-    background-position: 0 0;
-}
-#panel2 .panel-bg {
-    background-position: 50% 30%;
-}
-#panel23 .panel-bg {
-    background-position: 50% 25%;
+    
+    /*
+    #panel15 &,
+    #panel19 &,
+    #panel20 &,
+    #panel24 & {
+        background-position: 0 0;
+    }
+    #panel2 & {
+        background-position: 50% 30%;
+    }
+    #panel23 & {
+        background-position: 50% 25%;
+    }
+    */
 }
 .panel-description {
     display: block;
@@ -344,16 +349,21 @@ a.btn.btn-blue {
     .now-playing, .photo-credit { font: normal normal 12px Arial, Helvetica, sans-serif; color: #aaa; }
     .now-playing { margin-top: 20px; margin-bottom: 5px; }
     .photo-credit { margin-bottom: 0; }
+    
+    /*
+    #panel1 &,
+    #panel2 &,
+    #panel5 &,
+    #panel9 &,
+    #panel15 &,
+    #panel16 &,
+    #panel17 &,
+    #panel20 & {
+        left: auto;
+        right: 0;
+    }
+    */
 }
-#panel1 .panel-description,
-#panel2 .panel-description,
-#panel5 .panel-description,
-#panel9 .panel-description,
-#panel15 .panel-description,
-#panel16 .panel-description,
-#panel17 .panel-description,
-#panel20 .panel-description { left: auto; right: 0; }
-
 
 // TITLE AND CLOSING SCREENS
 .panel-open, .panel-end {
