@@ -9,6 +9,7 @@ from jinja2 import Template
 
 import app
 import app_config
+import data
 from etc import github
 
 """
@@ -456,6 +457,14 @@ def cron_test():
     require('settings', provided_by=[production, staging])
 
     local('echo $DEPLOYMENT_TARGET > /tmp/cron_test.txt')
+
+
+"""
+App-specific
+"""
+def bootstrap():
+    data.init()
+
 
 """
 Destruction
