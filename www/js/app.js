@@ -1,4 +1,4 @@
-var $main_content;
+var $content;
 var $s;
 var $slide_wrap;
 var $slide_nav;
@@ -117,10 +117,10 @@ var load_slideshow_data = function() {
         person['id'] = index + 1;
 
         person.position = (person.cue_start / audio_length) * 100;
-
-        if ($main_content.width() <= 480) {
+        
+        if ($content.width() <= 480) {
             person['image_width'] = 480;
-        } else if ($main_content.width() <= 979) {
+        } else if ($content.width() <= 979) {
             person['image_width'] = 979;
         } else {
             person['image_width'] = 1200;
@@ -153,10 +153,14 @@ var load_slideshow_data = function() {
         endlist_output += JST.endlist({ artist: person });
 
     });
-
-
+    
     $titlecard.after(slide_output);
     $('#send').before(audio_output);
+
+    $panels = $('.panel');
+    $panel_images = $('.panel-bg');
+
+    resize_slideshow();
 
     // // rename the closing slides with the correct ID numbers
     // var end_id = num_slides-1;
@@ -176,9 +180,9 @@ var resize_slideshow = function() {
     /*
      * Resize slideshow panels based on screen width
      */
-    var new_width = $main_content.width();
+    var new_width = $content.width();
     var new_height = $(window).height() - $audio.height();
-    var height_43 = Math.ceil(($main_content.width() * 3) / 4);
+    var height_43 = Math.ceil(($content.width() * 3) / 4);
 
     if (new_width <= 480) {
         new_height = 600;
@@ -269,7 +273,7 @@ var handle_keypress = function(ev) {
 $(document).ready(function() {
     num_slides = PEOPLE.length + 2;
 
-    $main_content = $('#main-content');
+    $content = $('#content');
     $s = $('#slideshow');
     $slide_wrap = $('#slideshow-wrap');
     $slide_nav = $('#slide-nav');
@@ -338,5 +342,4 @@ $(document).ready(function() {
     });
 
     load_slideshow_data();
-
 });
