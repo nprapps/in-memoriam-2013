@@ -16,6 +16,15 @@ var $titlecard;
 var $panels;
 var $panel_images;
 
+var active_slide = 0;
+var audio_length = 337; // TODO: Pass in dynamically somehow?
+var num_slides = 0;
+var slideshow_data = [];
+var pop; // Popcorn element
+var audio_supported = !($.browser.msie === true && $.browser.version < 9);
+var slide_list_open = false;
+
+
 var slide_list_toggle = function(mode) {
     if (slide_list_open || mode == 'close') {
         $slide_list.hide();
@@ -345,14 +354,6 @@ $(document).ready(function() {
     $slide_browse_btn = $('#browse-btn');
     $titlecard = $('#panel0');
 
-    var active_slide = 0;
-    var audio_length = 337; // TODO: Pass in dynamically somehow?
-    var num_slides = 0;
-    var slideshow_data = [];
-    var pop; // Popcorn element
-    var audio_supported = !($.browser.msie === true && $.browser.version < 9);
-    var slide_list_open = false;
-
     if (!audio_supported) { $audio.hide(); }
 
     slide_list_toggle('close');
@@ -396,7 +397,7 @@ $(document).ready(function() {
 
     $back.on('click', goto_previous_slide);
 
-    $(document).on('keydown', handle_keys(ev));
+    $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
     $audio_branding.on('click', function() {
         if (audio_supported) {
