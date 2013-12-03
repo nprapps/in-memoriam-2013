@@ -8,19 +8,19 @@ from dateutil import parser
 import requests
 
 FIELDNAMES = [
-    "first_name",
-    "last_name",
-    "artist_page_seamus_id",
-    "date_of_birth",
-    "date_of_death",
-    "also_known_as",
-    "description",
-    "obit_URL",
-    "photo_filename",
-    "photo_credit",
-    "photo_caption",
-    "start_time_in_mix",
-    "song_name"
+    'first_name',
+    'last_name',
+    'artist_page_seamus_id',
+    'date_of_birth',
+    'date_of_death',
+    'also_known_as',
+    'description',
+    'obit_URL',
+    'photo_filename',
+    'photo_credit',
+    'photo_caption',
+    'start_time_in_mix',
+    'song_name'
 ]
 
 class Person(object):
@@ -33,9 +33,9 @@ class Person(object):
         Loads each keyword argument as a class attribute.
         """
         for key, value in kwargs.items():
-            value = unicode(value.decode('utf-8')).strip()
+            value = str(value.decode('utf-8')).strip()
 
-            if key == u'start_time_in_mix':
+            if key == 'start_time_in_mix':
                 value = int(value)
 
             if key == 'date_of_death':
@@ -59,7 +59,7 @@ def get_csv():
     """
     r = requests.get('https://docs.google.com/spreadsheet/pub?key=0ArVJ2rZZnZpDdEFxUlY5eDBDN1NCSG55ZXNvTnlyWnc&output=csv')
 
-    print "Downloading CSV."
+    print 'Downloading CSV.'
 
     with open('data/in-memoriam.csv', 'wb') as writefile:
         writefile.write(r.content)
@@ -77,7 +77,7 @@ def parse_csv():
 
     people = people[1:]
 
-    print "Parsing %s people." % len(people)
+    print 'Parsing %s people.' % len(people)
 
     for person in people:
         p = Person(**person)
@@ -90,7 +90,7 @@ def write_json(people):
     Writes the payload to JSON.
     Lord help you if it's not a list or a dictionary.
     """
-    print "Writing %s people to JSON." % len(people)
+    print 'Writing %s people to JSON.' % len(people)
 
     with open('www/live-data/in-memoriam.json', 'wb') as writefile:
         writefile.write(json.dumps(people))
