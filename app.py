@@ -13,7 +13,12 @@ from render_utils import flatten_app_config, make_context
 
 app = Flask(app_config.PROJECT_NAME)
 
-# Example application views
+
+@app.route('/in-memoriam.json')
+def _memoriam():
+    with open('www/live-data/in-memoriam.json', 'rb') as readfile:
+        return readfile.read()
+
 @app.route('/')
 def index():
     """

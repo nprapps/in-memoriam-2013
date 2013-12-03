@@ -35,12 +35,16 @@ class Person(object):
         for key, value in kwargs.items():
             value = unicode(value.decode('utf-8')).strip()
 
+            if key == u'start_time_in_mix':
+                value = int(value)
+
             if key == 'date_of_death':
                 try:
                     value = parser.parse(value)
                     value = time.mktime(value.timetuple())
                 except TypeError:
                     pass
+
             setattr(self, key, value)
 
 def init():
@@ -92,10 +96,10 @@ def write_json(people):
         writefile.write(json.dumps(people))
 
 def load_photos(people):
+    print "Loading %s photos from S3." % len(people)
+
     for person in people:
-
         r = requests.get('http://apps.npr.org/in-memoriam-2013/img/people/originals/%s' % person['photo_filename'])
-
         with open('www/img/people/unversioned/%s' % person['photo_filename'], 'wb') as writefile:
             writefile.write(r.content)
 
