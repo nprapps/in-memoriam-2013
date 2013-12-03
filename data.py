@@ -33,7 +33,7 @@ class Person(object):
         Loads each keyword argument as a class attribute.
         """
         for key, value in kwargs.items():
-            value = str(value.decode('utf-8')).strip()
+            value = unicode(value, errors='replace').strip()
 
             if key == 'start_time_in_mix':
                 value = int(value)

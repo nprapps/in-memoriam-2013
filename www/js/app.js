@@ -384,7 +384,7 @@ $(document).ready(function() {
 
     $(window).on('resize', resize_slideshow);
 
-    $('#title-button').click(function() { play_slide(1); });
+    $('#title-button').on('click', function() { play_slide(1); });
 
     $slide_browse_btn.on('click', function(e){ slide_list_toggle(); });
 
