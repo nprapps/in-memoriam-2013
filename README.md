@@ -103,6 +103,8 @@ A flask app is used to run the project locally. It will automatically recompile 
 
 ```
 workon in-memoriam-2013
+brew install freetype
+ln -s /usr/local/Cellar/freetype/2.5.1/include/freetype2 /usr/local/include/freetype
 fab update_copy
 fab bootstrap
 python app.py

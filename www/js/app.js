@@ -17,13 +17,12 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
-var audio_length = 337; // TODO: Pass in dynamically somehow?
-var num_slides = 0;
+var audio_length = 390;
+var num_slides;
 var slideshow_data = [];
-var pop; // Popcorn element
+var pop;
 var audio_supported = !($.browser.msie === true && $.browser.version < 9);
 var slide_list_open = false;
-
 
 var slide_list_toggle = function(mode) {
     if (slide_list_open || mode == 'close') {
@@ -60,14 +59,20 @@ var ap_date = function(mmnt) {
     return out;
 };
 
+// AAAAA RADIOACTIVE
 var goto_slide = function(id) {
     /*
      * Determine whether to shift to the next slide
      * with audio, or without audio.
      */
+
+    //
+    // The data is structured differently this year, e.g., not indexed by ID.
+    // URLP.
+    //
     console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
-    if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) {
+    if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) { // slideshow_data structure is different.
         scroll_to_slide(id);
         if (slideshow_data[id] !== undefined) {
             $player.jPlayer('pause', slideshow_data[id]['cue_start']);
@@ -85,8 +90,14 @@ var play_slide = function(id) {
     /*
      * Play a slide at the correct audio cue.
      */
+
+    //
+    // The data is structured differently this year, e.g., not indexed by ID.
+    // URLP.
+    //
+
     if (audio_supported) {
-        $player.jPlayer('play', slideshow_data[id]['cue_start']);
+        $player.jPlayer('play', slideshow_data[id]['cue_start']); // slideshow_data structure is different.
     } else {
         scroll_to_slide(id);
     }
@@ -101,146 +112,64 @@ var load_slideshow_data = function() {
     var browse_output = '';
     var endlist_output = '';
 
-    $.getJSON('deaths.json', function(data) {
-        slideshow_data.push(undefined);
-        $.each(data, function(k, v) {
-            slideshow_data.push(v);
+    _.each(PEOPLE, function(person, index, list){
 
-            var slide_position = (v["cue_start"] / audio_length) * 100;
+        person['id'] = index + 1;
 
-            // Markup for this slide and its entry in the slide nav
-            // via Underscore template / JST
-            var context = v;
-            context['id'] = k + 1;
+        person.position = (person.cue_start / audio_length) * 100;
 
-            if ($main_content.width() <= 480) {
-                context['image_width'] = 480;
-            } else if ($main_content.width() <= 979) {
-                context['image_width'] = 979;
-            } else {
-                context['image_width'] = 1200;
-            }
+        if ($main_content.width() <= 480) {
+            person['image_width'] = 480;
+        } else if ($main_content.width() <= 979) {
+            person['image_width'] = 979;
+        } else {
+            person['image_width'] = 1200;
+        }
 
-            context['position'] = slide_position;
-
-            if (v['dob'] !== '') {
-                context['dob'] = ap_date(moment(v['dob'], 'MM DD YYYY'));
-                context['dod'] = ap_date(moment(v['dod'], 'MM DD YYYY'));
-            }
-
-            slide_output += JST.slide(context);
-            audio_output += JST.slidenav(context);
-            browse_output += JST.browse(context);
-            endlist_output += JST.endlist(context);
-
-            num_slides++;
-
-            if (audio_supported) {
-                var cue_start = v["cue_start"];
-                if (k === 0) {
-                    cue_start += 1;
-                }
-                // Popcorn cuepoint for this slide
-                pop.code({
-                    start: cue_start,
-                    end: cue_start + 0.5,
-                    onStart: function( options ) {
-                        scroll_to_slide(k+1);
-                        return false;
-                    },
-                    onEnd: function( options ) {}
-                });
-            }
-        });
-
-        $titlecard.after(slide_output);
-        $('#send').before(audio_output);
-
-        num_slides += 2; // because we have both a title slide and a closing slide
-        // rename the closing slides with the correct ID numbers
-
-        var end_id = num_slides - 1;
-        var end_cue = audio_length - 30;
-
-        $('#send').attr('id','s' + end_id);
-        $('#s' + end_id).attr('data-id', end_id);
-        $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
-        $('#panelend').attr('id','panel' + end_id);
-        slideshow_data.push({
-            id: end_id,
-            cue_start: end_cue
-        });
+        if (person.date_of_birth !== '') {
+            person.date_of_birth = ap_date(moment(person.date_of_birth, 'MM DD YYYY'));
+            person.date_of_death = ap_date(moment(person.date_of_death, 'MM DD YYYY'));
+        }
 
         if (audio_supported) {
-            // Popcorn cuepoint for opening slide
+            if (person['id'] === 0) {
+                person.start_time_in_mix += 1;
+            }
+
             pop.code({
-                start: 0,
-                end: 0.5,
+                start: person.start_time_in_mix,
+                end: person.start_time_in_mix + 0.5,
                 onStart: function( options ) {
-                    scroll_to_slide(0);
+                    scroll_to_slide(person['id'] + 1);
                     return false;
                 },
-                onEnd: function( options ) { }
-            });
-            // Popcorn cuepoint for closing slide
-            pop.code({
-                start: end_cue,
-                end: end_cue + 0.5,
-                onStart: function( options ) {
-                    scroll_to_slide(end_id);
-                    return false;
-                },
-                onEnd: function( options ) { }
+                onEnd: function( options ) {}
             });
         }
 
-        $slide_nav.find('.slide-nav-item').click( function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            goto_slide(id);
-        });
+        slide_output += JST.slide({ artist: person });
+        audio_output += JST.slidenav({ artist: person });
+        browse_output += JST.browse({ artist: person });
+        endlist_output += JST.endlist({ artist: person });
 
-        $slide_nav.find('.slide-nav-item').hover(function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            $slide_list.find('a[data-id="' + id + '"]').addClass('active');
-        }, function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            $slide_list.find('a[data-id="' + id + '"]').removeClass('active');
-        });
-
-        $slide_list.append(browse_output);
-
-        $slide_list.append(JST.browse({
-            'id': num_slides - 1,
-            'image_name': null,
-            'artist_first_name': '',
-            'artist_last_name': 'Index & Credits'
-        }));
-
-        $slide_list.find('a').click(function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            goto_slide(id);
-            slide_list_toggle('close');
-        });
-
-        $slide_list.find('a').hover(function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').addClass('active');
-        }, function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').removeClass('active');
-        });
-
-        $slide_list_end.append(endlist_output);
-        $slide_list_end.find('a.slidelink').click(function() {
-            var id = parseInt($(this).attr('data-id'), 0);
-            goto_slide(id);
-        });
-
-        $panels = $slide_wrap.find('.panel');
-        $panel_images = $panels.find('.panel-bg');
-
-        resize_slideshow();
     });
+
+
+    $titlecard.after(slide_output);
+    $('#send').before(audio_output);
+
+    // // rename the closing slides with the correct ID numbers
+    // var end_id = num_slides-1;
+    // var end_cue = audio_length - 30;
+    // $('#send').attr('id','s' + end_id);
+    // $('#s' + end_id).attr('data-id', end_id);
+    // $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
+    // $('#panelend').attr('id','panel' + end_id);
+    // slideshow_data.push({
+    //         id: end_id,
+    //         cue_start: end_cue
+    // });
+
 };
 
 var resize_slideshow = function() {
@@ -338,6 +267,8 @@ var handle_keypress = function(ev) {
 };
 
 $(document).ready(function() {
+    num_slides = PEOPLE.length + 2;
+
     $main_content = $('#main-content');
     $s = $('#slideshow');
     $slide_wrap = $('#slideshow-wrap');

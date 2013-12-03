@@ -1,6 +1,6 @@
-<div class="browse<%= id %> browse-artist">
-    <% if (image_name) { %>
-    <a href="javascript:;" class="slidelink" data-id="<%= id %>">
+<div class="browse<%= artist.id %> browse-artist">
+    <% if (artist.photo_filename) { %>
+    <a href="javascript:;" class="slidelink" data-id="<%= artist.id %>">
         <img src="img/mugs/<%= artist.photo_filename %>_120.jpg" />
         <h2><%= artist.first_name %> <%= artist.last_name %></h2>
     </a>

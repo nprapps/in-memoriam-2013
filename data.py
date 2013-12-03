@@ -31,11 +31,7 @@ class Person(object):
         Loads each keyword argument as a class attribute.
         """
         for key, value in kwargs.items():
-            try:
-                value = unicode(value, errors='replace').strip()
-
-            except TypeError:
-                value = int(value)
+            value = unicode(value, errors='replace').strip()
 
             if key == 'start_time_in_mix':
                 value = int(value)
@@ -75,7 +71,6 @@ def parse_csv():
     print 'Parsing %s people.' % len(people)
 
     for idx, person in enumerate(people):
-        person['id'] = idx
         p = Person(**person)
         payload.append(p.__dict__)
 
@@ -98,6 +93,7 @@ def load_photos(people):
         r = requests.get('http://apps.npr.org/in-memoriam-2013/img/people/originals/%s' % person['photo_filename'])
         with open('www/img/people/unversioned/%s' % person['photo_filename'], 'wb') as writefile:
             writefile.write(r.content)
+            print 'Downloading photo: %s' % person['photo_filename'].replace('_', ' ').replace('.jpg', '')
 
 if __name__ == "__main__":
     init()

@@ -462,8 +462,47 @@ def cron_test():
 """
 App-specific
 """
+def cut_mugs():
+    from PIL import Image
+
+    output_dir = 'www/img/people/versioned/'
+    widths = [120, 480, 979, 1200]
+    local('rm -rf %s*.jpg' % output_dir)
+
+    for path in glob('www/img/people/unversioned/*.jpg'):
+        filename = os.path.split(path)[-1]
+        name = os.path.splitext(filename)[0]
+
+        original = Image.open(path)
+
+        for width in widths:
+            output_path = os.path.join(output_dir, '%s_%i.jpg' % (name, width))
+
+            width_pct = width / float(original.size[0])
+            height = int(float(original.size[1] * width_pct))
+
+            if width == widths[0]:
+                if original.size[1] < original.size[0] * 3 / 4:
+                    h = original.size[1]
+                    w = h * 4 / 3
+                else:
+                    w = original.size[0]
+                    h = w * 3 / 4
+
+                img = original.crop((0, 0, w, h))
+
+                width_pct = width / float(img.size[0])
+                height = int(float(img.size[1] * width_pct))
+            else:
+                img = original
+
+            print 'Cutting photo: %s at %ix%i' % (name.replace('_', ' '), width, height)
+            img = img.resize((width, height), Image.ANTIALIAS)
+            img.save(output_path)
+
 def bootstrap():
     data.init()
+    cut_mugs()
 
 
 """
