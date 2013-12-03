@@ -23,6 +23,7 @@ body {
     background-color: @slide-bg-color;
     -webkit-font-smoothing: antialiased;
 }
+/*
 h1 { 
     font: normal 32px/1.125 Georgia, serif; 
     margin: 0 0 22px 0;
@@ -73,6 +74,7 @@ a.btn.btn-blue {
 		-webkit-transition: none; -moz-transition: none; -o-transition: none; transition: none;
 	}
 }
+*/
 
 // AUDIO NAV
 #audio-navbar {
@@ -92,19 +94,19 @@ a.btn.btn-blue {
         padding-top: 10px;
         float: left;
         cursor: pointer;
-    }
-    .branding h2 {
-        background: url('@{img-root}/hed-in-memoriam-small.png') no-repeat;
-        width: 242px; height: 30px;
-        text-indent: -9999px;
-        margin: 0;
+
+        h2 {
+            background: url('@{img-root}/hed-in-memoriam-small.png') no-repeat;
+            width: 242px; height: 30px;
+            text-indent: -9999px;
+            margin: 0;
+        }
     }
 }
 #audio {
     float: left;
     height: @audio-height;
     border-left: 1px solid @nav-border;
-    border-right: 1px solid @nav-border;
 }
 #slide-nav {
     margin: 0 1%; padding: 0; list-style: none;
@@ -127,11 +129,10 @@ a.btn.btn-blue {
         margin: 21px auto 0 auto;
         text-indent: -9999px;
     }
+    
+    &:hover, &.active { background-color: @nav-button-hover; }
+    &:hover span, &.active span { background-color: @text-gray; }
 }
-.slide-nav-item:hover { background-color: @nav-button-hover; }
-.slide-nav-item.active { background-color: @nav-button-hover; }
-.slide-nav-item:hover span { background-color: @text-gray; }
-.slide-nav-item.active span { background-color: @text-gray; }
 
 .nav-btn  {
     color: @nav-text-color;
@@ -143,42 +144,54 @@ a.btn.btn-blue {
     position: relative;
     cursor: pointer;
     outline: none;
-    width: 40px; height: @audio-height;
+    width: 40px; 
+    height: @audio-height;
     border-right: 1px solid @nav-border;
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none;
-}
-.nav-btn i {
-    display: block;
-    position: absolute; top: 15px; left: 13px;
-    overflow: hidden;
-    text-indent: -9999px;
-    opacity: .5;
-}
-.nav-btn:hover {
-    background-color: @nav-button-hover;
-    color: @nav-text-hover;
-}
-.nav-btn:hover i { opacity: .8; }
 
-.nav-btn.back-next {
-    width: 60px; height: 20px;
-    padding: 15px 10px;
-    float: right;
-    border-left: 1px solid @nav-border;
-    border-right: none;
-    font-weight: bold;
-}
+    i {
+        line-height: @audio-height;
+        display: block;
+        opacity: .5;
+        color: #fff;
+    }
 
+    &:hover {
+        background-color: @nav-button-hover;
+        color: @nav-text-hover;
+        
+        i { opacity: .8; }
+    }
+    
+    &.back-next {
+        width: 60px;
+        line-height: @audio-height;
+        text-align: center;
+        float: right;
+        border-left: 1px solid @nav-border;
+        border-right: none;
+        font-weight: bold;
+    }
+}
 
 /* AUDIO PLAYER */
 .jp-audio {
-    font-size: .9em/1.6 Arial, sans-serif;
+    font-size: 14px;
     color: #fff;
     width: 483px;
     .clearfix();
 }
-.jp-jplayer { width:0px; height:0px; background-color: #000000; }
-.jp-interface { position: relative; width: 100%; height: 100%; }
+.jp-jplayer { 
+    width: 0px; 
+    height: 0px; 
+    background-color: #000000;
+}
+.jp-interface { 
+    position: relative; 
+    width: 100%; 
+    height: 100%;
+    .clearfix();
+}
 .jp-controls {
     list-style-type: none;
     padding: 0;
@@ -186,13 +199,14 @@ a.btn.btn-blue {
     width: 41px;
     float: left;
 
-    a  { display: block; }
-    a.jp-play, a.jp-pause { background-color: @nav-button-color; }
+    a  { 
+        display: block;
+        
+        &.jp-play, &.jp-pause { background-color: @nav-button-color; }
+    }
 }
-
 .jp-progress-container {
     width: 376px;
-//  padding-left: 5px;
     height: 100%;
     float: left;
     position: relative;
@@ -204,16 +218,19 @@ a.btn.btn-blue {
 
 .jp-current-time {
     float: left;
-    width: 50px;
+    width: 60px;
+    line-height: @audio-height;
     color: #8b9094;
     text-align: center;
-    padding: 15px 5px 18px 5px;
     border-left: 1px solid @nav-border;
+    border-right: 1px solid @nav-border;
 }
 
 
 // SLIDE NAV
 .slide-list {
+    .clearfix();
+
     .browse-artist {
         width: 25%;
         float: left;
@@ -228,14 +245,17 @@ a.btn.btn-blue {
         margin-right: 10px;
         border: 1px solid @nav-border;
     }
-    h2 { font: 13px/1.3 Arial, Helvetica, sans-serif; margin: 0; }
+    h2 { 
+        font: 13px/1.3 Arial, Helvetica, sans-serif; 
+        margin: 0;
+    }
     a {
         color: @nav-text-color;
         display: block;
         padding: 10px;
         border-top: 1px solid @nav-button-color;
+        .clearfix();
     }
-    a:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
     a:hover, a.active {
         color: @nav-text-hover;
         background-color: @nav-button-hover;
@@ -243,7 +263,7 @@ a.btn.btn-blue {
     }
     a:hover img, a.active img { border-color: @text-gray; }
 }
-.slide-list:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
 #list-nav {
     width: 80%;
     position: absolute;
@@ -380,6 +400,7 @@ a.btn.btn-blue {
 }
 #list-nav-end {
     margin-bottom: 20px;
+    .clearfix();
 
     .browse-artist {
         width: 25%;
@@ -388,8 +409,8 @@ a.btn.btn-blue {
         overflow: hidden;
         border-top: 1px solid @nav-button-color;
         padding: 10px 0;
+        .clearfix();
     }
-    .browse-artist:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
     img {
         float: left;
         width: 60px;
@@ -402,13 +423,11 @@ a.btn.btn-blue {
     a:hover, a.active { color: @nav-text-hover; text-decoration: none; }
     a:hover img, a.active img { border-color: @text-gray; }
 }
-#list-nav-end:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 
 #share-buttons {
     margin-bottom: 20px;
-    .fb-like {
-        margin-bottom:10px;
-    }
+
+    .fb-like { margin-bottom:10px; }
 }
 
 // MEDIA QUERIES
