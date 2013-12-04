@@ -119,7 +119,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
     
     &.back-next {
-        width: 75px;
+        width: 77px;
         line-height: @audio-height;
         text-align: center;
         float: right;
@@ -131,7 +131,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
 /* AUDIO PLAYER */
 .jp-audio {
-    font-size: 14px;
+    font-size: 12px;
     color: #fff;
     width: 483px;
     border-right: 1px solid @nav-border;
@@ -158,7 +158,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     a  { 
         display: block;
         
-        &.jp-play, &.jp-pause { background-color: @nav-button-color; }
+        &.jp-play, 
+        &.jp-pause { background-color: @nav-button-color; }
     }
 }
 .jp-progress-container {
@@ -168,10 +169,25 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     position: relative;
     background-color: @nav-button-color;
 }
-.jp-progress { overflow: hidden; width: 100%; height: @audio-height; background-color: @slide-bg-color; position: absolute; top: 0; left: 0; }
-.jp-seek-bar { width: 0px; height: @audio-height; }
-.jp-play-bar { width: 0px; height: @audio-height; background-color: @nav-button-color; border-right: 1px solid @nav-border; }
-
+.jp-progress { 
+    overflow: hidden; 
+    width: 100%; 
+    height: @audio-height; 
+    background-color: @slide-bg-color; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+}
+.jp-seek-bar { 
+    width: 0px; 
+    height: @audio-height;
+}
+.jp-play-bar { 
+    width: 0px; 
+    height: @audio-height; 
+    background-color: @nav-button-color; 
+    border-right: 1px solid @nav-border;
+}
 .jp-current-time {
     float: left;
     width: 65px;
@@ -276,8 +292,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     #panel23 &  { background-position: 50% 10%; }
     #panel5 &,
     #panel6 &,
-    #panel12 &,
-    #panel17 &  { background-position: 50% 20%; }
+    #panel12 &  { background-position: 50% 20%; }
     #panel8 &   { background-position: 50% 40%; }
     #panel11 &  { background-position: 50% 20%; }
     #panel20 &  { background-position: 50% 30%; }
@@ -353,7 +368,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 // TITLE AND CLOSING SCREENS
-.panel-open, .panel-end {
+.panel-open, 
+.panel-end {
     background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
     /* Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/ */
 }
@@ -364,27 +380,47 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     margin: 60px auto 0 auto;
     background: @shade-bg;
     border: 2px solid rgba(60,60,60,.6);
-    border-radius: 6px;
-    padding: 30px;
+    padding: 50px 30px 40px 30px;
     color: @text-gray;
     text-decoration: none;
     text-shadow: @shadow;
+    text-align: center;
 
+    h5 {
+        font-size: 18px;
+        text-transform: uppercase;
+        margin: 0 0 11px 0;
+    }
     h1 {
-        background: url('@{img-root}/hed-in-memoriam.png') no-repeat;
-        height: 73px;
-        text-indent: -9999px;
-        overflow: hidden;
-    }
-    h2 {
-        font: normal normal 30px/1.5 Georgia, serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 72px;
         color: #fff;
-        margin-top: 25px;
-        margin-bottom: 0;
-        outline: none;
+        margin: 0 0 22px 0;
     }
-    h2:hover { color: @text-gray; }
-    h5, p { font: italic normal 24px/1.5 Georgia, serif; }
+    h2 { 
+        font-size: 24px;
+        line-height: 1.5;
+        margin: 0 0 33px 0;
+    }
+    h3 {
+        display: inline-block;
+        line-height: 44px;
+        padding: 0 15px;
+        background-color: #fff;
+        color: #000;
+        outline: none;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+        text-shadow: none;
+        
+        &:hover {
+            background-color: @nav-button-hover;
+            color: #fff;
+        }
+    }
 }
 .panel-end {
     text-shadow: @shadow;
