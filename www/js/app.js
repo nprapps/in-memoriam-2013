@@ -78,8 +78,7 @@ var load_slideshow_data = function() {
 
         person.position = parseInt((person.start_time_in_mix / audio_length) * 100, 0);
 
-        if ($main_content.width() <= 480) {
-
+        if ($content.width() <= 480) {
             person['image_width'] = 480;
         } else if ($content.width() <= 979) {
             person['image_width'] = 979;
@@ -127,7 +126,11 @@ var load_slideshow_data = function() {
     $('#s' + end_id).attr('data-id', end_id);
     $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
     $('#panelend').attr('id','panel' + end_id);
+    
+    $panels = $('.panel');
+    $panel_images = $('.panel-bg');
 
+    resize_slideshow();
 };
 
 // AAAAA RADIOACTIVE
