@@ -63,18 +63,18 @@ var load_slideshow_data = function() {
     /*
      * Load slideshow data from external JSON
      */
+    console.log('load_slideshow_data()');
+
     var slide_html = '';
     var audio_html = '';
     var browse_html = '';
     var end_list_html = '';
 
-    // slideshow_data.push({ id: 0, cue_point: null });
-
     _.each(PEOPLE, function(person, index, list){
 
-        slideshow_data.push({ id: index + 1, cue_point: person.start_time_in_mix });
+        person['id'] = index;
 
-        person['id'] = index + 1;
+        slideshow_data.push({ id: person['id'], cue_point: person.start_time_in_mix });
 
         person.position = parseInt((person.start_time_in_mix / audio_length) * 100, 0);
 
@@ -173,7 +173,6 @@ var load_slideshow_data = function() {
     resize_slideshow();
 };
 
-// AAAAA RADIOACTIVE
 var goto_slide = function(id) {
     /*
      * Determine whether to shift to the next slide
@@ -184,7 +183,7 @@ var goto_slide = function(id) {
     if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) {
         scroll_to_slide(id);
         if (slideshow_data[id] !== undefined) {
-            $player.jPlayer('pause', slideshow_data[id]['cue_start']);
+            $player.jPlayer('pause', slideshow_data[id]['cue_point']);
         } else if (id == (num_slides - 1)) {
             $player.jPlayer('pause', audio_length);
         }
@@ -200,7 +199,8 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        $player.jPlayer('play', slideshow_data[id]['cue_start']);
+        console.log('play_slide' + slideshow_data[id]['cue_point']);
+        $player.jPlayer('play', slideshow_data[id]['cue_point']);
     } else {
         scroll_to_slide(id);
     }
@@ -210,6 +210,7 @@ var resize_slideshow = function() {
     /*
      * Resize slideshow panels based on screen width
      */
+    console.log('resize_slideshow()');
     var new_width = $content.width();
     var new_height = $(window).height() - $audio.height();
     var height_43 = Math.ceil(($content.width() * 3) / 4);
@@ -346,6 +347,7 @@ $(document).ready(function() {
             swfPath: "js",
             supplied: "oga, mp3"
         });
+
         pop = Popcorn('#jp_audio_0');
     }
 
