@@ -118,10 +118,22 @@ var load_slideshow_data = function() {
 
     $titlecard.after(slide_html);
     $('#send').before(audio_html);
+    $slide_list_end.append(end_list_html);
+
+    $slide_list.append(browse_html);
+
+    $slide_list.append(JST.browse({ artist: {
+        'id': num_slides - 1,
+        'photo_filename': null,
+        'first_name': '',
+        'last_name': 'Index & Credits'
+    }}));
+
 
     // rename the closing slides with the correct ID numbers
     var end_id = PEOPLE.length + 1;
     var end_cue = audio_length - 30;
+
     $('#send').attr('id','s' + end_id);
     $('#s' + end_id).attr('data-id', end_id);
     $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
@@ -129,6 +141,37 @@ var load_slideshow_data = function() {
 
     $panels = $('.panel');
     $panel_images = $('.panel-bg');
+
+    $slide_nav.find('.slide-nav-item').on('hover', function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        $slide_list.find('a[data-id="' + id + '"]').addClass('active');
+    }, function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        $slide_list.find('a[data-id="' + id + '"]').removeClass('active');
+    });
+
+    $slide_list.find('a').on('click', function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        goto_slide(id);
+        slide_list_toggle('close');
+    });
+
+    $slide_list.find('a').on('hover', function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').addClass('active');
+    }, function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').removeClass('active');
+    });
+
+
+    $slide_list_end.find('a.slidelink').on('click', function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        goto_slide(id);
+    });
+
+    $panels = $slide_wrap.find('.panel');
+    $panel_images = $panels.find('.panel-bg');
 
     resize_slideshow();
 };
