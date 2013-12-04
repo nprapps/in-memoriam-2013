@@ -78,7 +78,7 @@ var load_slideshow_data = function() {
 
         person.position = parseInt((person.start_time_in_mix / audio_length) * 100, 0);
 
-        if ($main_content.width() <= 480) {
+        if ($content.width() <= 480) {
 
             person['image_width'] = 480;
         } else if ($content.width() <= 979) {

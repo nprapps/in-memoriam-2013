@@ -1,5 +1,5 @@
 <div id="panel<%= artist.id %>" class="panel">
-    <div class="panel-bg" style="background-image: url('img/mugs/<%= artist.photo_filename %>_<%= artist.image_width %>.jpg');"> </div>
+    <div class="panel-bg" style="background-image: url('img/people/versioned/<%= artist.photo_filename.replace('.jpg', '') %>_<%= artist.image_width %>.jpg');"> </div>
     <div class="panel-description">
         <h2><%= artist.first_name %> <%= artist.last_name %></h2>
         <% if (artist.date_of_birth != '') { %>
