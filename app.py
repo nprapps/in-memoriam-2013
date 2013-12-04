@@ -29,6 +29,18 @@ def index():
     with open('www/live-data/in-memoriam.json', 'rb') as readfile:
         context['PEOPLE'] = readfile.read()
 
+    try:
+        r = envoy.run('sox www/audio/in-memoriam.mp3 -n stat', timeout=5)
+        context['AUDIO_LENGTH'] = int(r.std_err.split('\n')[1].replace('Length (seconds):', '').strip().split('.')[0])
+        context['SOX_ALERT'] = False
+    except AttributeError:
+        """
+        You didn't install sox, did you?
+        """
+        print "PLEASE DO brew install sox IN ORDER TO BE A FUNCTIONING MEMBER OF HUMANITY."
+        context['AUDIO_LENGTH'] = 396
+        context['SOX_ALERT'] = True
+
     return render_template('index.html', **context)
 
 

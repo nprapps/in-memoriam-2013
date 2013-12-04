@@ -17,9 +17,7 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
-var audio_length = 396;
 var num_slides;
-var slideshow_data = [];
 var pop;
 var audio_supported = !($.browser.msie === true && $.browser.version < 9);
 var slide_list_open = false;
@@ -74,9 +72,8 @@ var load_slideshow_data = function() {
 
         person['id'] = index;
 
-        slideshow_data.push({ id: person['id'], cue_point: person.start_time_in_mix });
 
-        person.position = parseInt((person.start_time_in_mix / audio_length) * 100, 0);
+        person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
 
         if ($content.width() <= 480) {
             person['image_width'] = 480;
@@ -114,8 +111,6 @@ var load_slideshow_data = function() {
 
     });
 
-    slideshow_data.push({ id: PEOPLE.length + 1, cue_point: audio_length - 30 });
-
     $titlecard.after(slide_html);
     $('#send').before(audio_html);
     $slide_list_end.append(end_list_html);
@@ -132,11 +127,11 @@ var load_slideshow_data = function() {
 
     // rename the closing slides with the correct ID numbers
     var end_id = PEOPLE.length + 1;
-    var end_cue = audio_length - 30;
+    var end_cue = AUDIO_LENGTH - 30;
 
     $('#send').attr('id','s' + end_id);
     $('#s' + end_id).attr('data-id', end_id);
-    $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
+    $('#s' + end_id).css('left',((end_cue / AUDIO_LENGTH) * 100) + '%');
     $('#panelend').attr('id','panel' + end_id);
 
     $slide_nav.find('.slide-nav-item').on('hover', function() {
@@ -180,12 +175,12 @@ var goto_slide = function(id) {
      */
     console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
-    if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) {
+    if (!audio_supported || $player.data().jPlayer.status.paused || PEOPLE[id] === undefined) {
         scroll_to_slide(id);
-        if (slideshow_data[id] !== undefined) {
-            $player.jPlayer('pause', slideshow_data[id]['cue_point']);
+        if (PEOPLE[id] !== undefined) {
+            $player.jPlayer('pause', PEOPLE[id]['cue_point']);
         } else if (id == (num_slides - 1)) {
-            $player.jPlayer('pause', audio_length);
+            $player.jPlayer('pause', AUDIO_LENGTH);
         }
     } else {
         play_slide(id);
@@ -199,8 +194,8 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        console.log('play_slide' + slideshow_data[id]['cue_point']);
-        $player.jPlayer('play', slideshow_data[id]['cue_point']);
+        console.log('play_slide' + PEOPLE[id]['cue_point']);
+        $player.jPlayer('play', PEOPLE[id]['cue_point']);
     } else {
         scroll_to_slide(id);
     }

@@ -81,5 +81,10 @@
 
 
 {% block extra_foot %}
-<script type="text/javascript">window.PEOPLE = {{ PEOPLE|safe }};</script>
+<script type="text/javascript">
+window.PEOPLE = {{ PEOPLE|safe }};window.AUDIO_LENGTH = {{ AUDIO_LENGTH }};
+{% if SOX_ALERT == True %}
+    alert('Hi! Jeremy just updated the app.py to require sox.\nYou can install it like this:\n\nbrew install sox\n\nThanks!.');
+{% endif %}
+</script>
 {% endblock extra_foot %}
