@@ -14,7 +14,7 @@ import os
 NAMES
 """
 # Project name used for display
-PROJECT_NAME = 'in-memoriam-2013'
+PROJECT_NAME = 'In Memoriam: Musicians And Entertainers Who Died In 2013'
 
 # Project name in urls
 # Use dashes, not underscores!
