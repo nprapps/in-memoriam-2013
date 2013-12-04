@@ -139,9 +139,6 @@ var load_slideshow_data = function() {
     $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
     $('#panelend').attr('id','panel' + end_id);
 
-    $panels = $('.panel');
-    $panel_images = $('.panel-bg');
-
     $slide_nav.find('.slide-nav-item').on('hover', function() {
         var id = parseInt($(this).attr('data-id'), 0);
         $slide_list.find('a[data-id="' + id + '"]').addClass('active');
