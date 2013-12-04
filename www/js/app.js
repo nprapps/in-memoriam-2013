@@ -17,7 +17,7 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
-var audio_length = 390;
+var audio_length = 400;
 var num_slides;
 var slideshow_data = [];
 var pop;
@@ -57,6 +57,76 @@ var ap_date = function(mmnt) {
     out += ' ' + mmnt.format('D, YYYY');
 
     return out;
+};
+
+var load_slideshow_data = function() {
+    /*
+     * Load slideshow data from external JSON
+     */
+    var slide_output = '';
+    var audio_output = '';
+    var browse_output = '';
+    var endlist_output = '';
+
+    slideshow_data.push({ id: 0, cue_point: null });
+
+    _.each(PEOPLE, function(person, index, list){
+
+        slideshow_data.push({ id: index + 1, cue_point: person.start_time_in_mix });
+
+        person['id'] = index + 1;
+
+        person.position = parseInt((person.start_time_in_mix / audio_length) * 100, 0);
+
+        if ($main_content.width() <= 480) {
+            person['image_width'] = 480;
+        } else if ($main_content.width() <= 979) {
+            person['image_width'] = 979;
+        } else {
+            person['image_width'] = 1200;
+        }
+
+        if (person.date_of_birth !== '') {
+            person.date_of_birth = ap_date(moment(person.date_of_birth, 'MM DD YYYY'));
+            person.date_of_death = ap_date(moment(person.date_of_death, 'MM DD YYYY'));
+        }
+
+        if (audio_supported) {
+            if (person['id'] === 0) {
+                person.start_time_in_mix += 1;
+            }
+
+            pop.code({
+                start: person.start_time_in_mix,
+                end: person.start_time_in_mix + 0.5,
+                onStart: function( options ) {
+                    scroll_to_slide(person['id'] + 1);
+                    return false;
+                },
+                onEnd: function( options ) {}
+            });
+        }
+
+        slide_output += JST.slide({ artist: person });
+        audio_output += JST.slidenav({ artist: person });
+        browse_output += JST.browse({ artist: person });
+        endlist_output += JST.endlist({ artist: person });
+
+    });
+
+    slideshow_data.push({ id: PEOPLE.length + 1, cue_point: audio_length - 30 });
+
+    $titlecard.after(slide_output);
+    $('#send').before(audio_output);
+
+    // rename the closing slides with the correct ID numbers
+    var end_id = PEOPLE.length + 1;
+    var end_cue = audio_length - 30;
+    $('#send').attr('id','s' + end_id);
+    $('#s' + end_id).attr('data-id', end_id);
+    $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
+    $('#panelend').attr('id','panel' + end_id);
+
 };
 
 // AAAAA RADIOACTIVE
@@ -101,75 +171,6 @@ var play_slide = function(id) {
     } else {
         scroll_to_slide(id);
     }
-};
-
-var load_slideshow_data = function() {
-    /*
-     * Load slideshow data from external JSON
-     */
-    var slide_output = '';
-    var audio_output = '';
-    var browse_output = '';
-    var endlist_output = '';
-
-    _.each(PEOPLE, function(person, index, list){
-
-        person['id'] = index + 1;
-
-        person.position = (person.cue_start / audio_length) * 100;
-
-        if ($main_content.width() <= 480) {
-            person['image_width'] = 480;
-        } else if ($main_content.width() <= 979) {
-            person['image_width'] = 979;
-        } else {
-            person['image_width'] = 1200;
-        }
-
-        if (person.date_of_birth !== '') {
-            person.date_of_birth = ap_date(moment(person.date_of_birth, 'MM DD YYYY'));
-            person.date_of_death = ap_date(moment(person.date_of_death, 'MM DD YYYY'));
-        }
-
-        if (audio_supported) {
-            if (person['id'] === 0) {
-                person.start_time_in_mix += 1;
-            }
-
-            pop.code({
-                start: person.start_time_in_mix,
-                end: person.start_time_in_mix + 0.5,
-                onStart: function( options ) {
-                    scroll_to_slide(person['id'] + 1);
-                    return false;
-                },
-                onEnd: function( options ) {}
-            });
-        }
-
-        slide_output += JST.slide({ artist: person });
-        audio_output += JST.slidenav({ artist: person });
-        browse_output += JST.browse({ artist: person });
-        endlist_output += JST.endlist({ artist: person });
-
-    });
-
-
-    $titlecard.after(slide_output);
-    $('#send').before(audio_output);
-
-    // // rename the closing slides with the correct ID numbers
-    // var end_id = num_slides-1;
-    // var end_cue = audio_length - 30;
-    // $('#send').attr('id','s' + end_id);
-    // $('#s' + end_id).attr('data-id', end_id);
-    // $('#s' + end_id).css('left',((end_cue / audio_length) * 100) + '%');
-    // $('#panelend').attr('id','panel' + end_id);
-    // slideshow_data.push({
-    //         id: end_id,
-    //         cue_start: end_cue
-    // });
-
 };
 
 var resize_slideshow = function() {
@@ -236,7 +237,7 @@ var scroll_to_slide = function(id) {
 };
 
 var goto_next_slide = function() {
-    if (active_slide < (num_slides-1)) {
+    if (active_slide < (num_slides - 1)) {
         var id = active_slide + 1;
         goto_slide(id);
     }
