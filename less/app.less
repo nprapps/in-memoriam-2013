@@ -16,6 +16,15 @@
 @nav-text-color: #88919a;
 @nav-text-hover: #b0b0b0;
 
+// Breakpoints
+@screen-mega-above: ~"screen and (min-width: 1440px)";
+@screen-large: ~"screen and (max-width: 1200px)";
+@screen-medium: ~"screen and (max-width: 979px)";
+@screen-small-above: ~"screen and (min-width: 768px)";
+@screen-small: ~"screen and (max-width: 767px)";
+@screen-tiny-above: ~"screen and (min-width: 481px)";
+@screen-tiny: ~"screen and (max-width: 480px)";
+
 
 // General styles
 body { 
@@ -275,6 +284,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     position: relative;
     overflow: hidden;
     float: left;
+    width: 100%;
 }
 .panel-bg {
     width: 100%;
@@ -375,33 +385,43 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 #title-button {
     display: block;
-    width: 60%;
-    max-width: 725px;
-    margin: 60px auto 0 auto;
-    background: @shade-bg;
-    border: 2px solid rgba(60,60,60,.6);
-    padding: 50px 30px 40px 30px;
     color: @text-gray;
     text-decoration: none;
     text-shadow: @shadow;
     text-align: center;
+    margin: 20px; 
+   
+    @media @screen-small-above {
+        width: 60%;
+        max-width: 725px;
+        margin: 60px auto 0 auto;
+        background: @shade-bg;
+        border: 2px solid rgba(60,60,60,.6);
+        padding: 50px 30px 40px 30px;
+    }
 
     h5 {
-        font-size: 18px;
         text-transform: uppercase;
         margin: 0 0 11px 0;
+        font-size: 14px;
+
+        @media @screen-small-above { font-size: 18px; }
     }
     h1 {
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 72px;
         color: #fff;
         margin: 0 0 22px 0;
+        font-size: 42px;
+        
+        @media @screen-small-above { font-size: 72px; }
     }
     h2 { 
-        font-size: 24px;
         line-height: 1.5;
         margin: 0 0 33px 0;
+        font-size: 18px;
+
+        @media @screen-small-above { font-size: 24px; }
     }
     h3 {
         display: inline-block;
@@ -513,8 +533,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .jp-current-time { border-left: none; }
     .nav-btn.back-next { padding-left: 0; padding-right: 0; width: 40px; }
 
-    #title-button {  width: auto; border: none; background: none; padding: 0; margin: 20px; }
-
     .panel-description {
         h2 { font-size: 32px; }
         p { font-size: 14px; }
@@ -529,11 +547,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     #list-nav-end .browse-artist { height: 80px; }
 }
 @media (max-width: 640px) {
-    #title-button {
-        h1 { background-image: url('@{img-root}/hed-in-memoriam-mobile.png'); height: 47px; }
-        h2 { font-size: 24px; }
-        h5, p { font-size: 18px; }
-    }
     .panel-description {
         bottom: 0; width: auto; padding-bottom: 15px;
 
