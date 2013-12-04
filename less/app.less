@@ -292,9 +292,15 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 .panel {
     background-color: @slide-bg-color;
     position: relative;
-    overflow: hidden;
     float: left;
     width: 100%;
+    overflow: hidden;
+    
+    /* we may or may not need this */
+    @media @screen-tiny { 
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 .panel-bg {
     width: 100%;
