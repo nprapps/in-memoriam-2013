@@ -135,6 +135,16 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         border-left: 1px solid @nav-border;
         border-right: none;
         font-weight: bold;
+        white-space: nowrap;
+        
+        i { display: inline-block; }
+        span {
+            display: none;
+            
+            @media @screen-small-above { display: inline-block; }
+        }
+        &#back-btn span { padding-left: 5px; }
+        &#next-btn span { padding-right: 5px; }
     }
 }
 
