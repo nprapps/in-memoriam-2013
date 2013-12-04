@@ -17,7 +17,7 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
-var audio_length = 400;
+var audio_length = 396;
 var num_slides;
 var slideshow_data = [];
 var pop;
@@ -63,12 +63,12 @@ var load_slideshow_data = function() {
     /*
      * Load slideshow data from external JSON
      */
-    var slide_output = '';
-    var audio_output = '';
-    var browse_output = '';
-    var endlist_output = '';
+    var slide_html = '';
+    var audio_html = '';
+    var browse_html = '';
+    var end_list_html = '';
 
-    slideshow_data.push({ id: 0, cue_point: null });
+    // slideshow_data.push({ id: 0, cue_point: null });
 
     _.each(PEOPLE, function(person, index, list){
 
@@ -100,24 +100,24 @@ var load_slideshow_data = function() {
                 start: person.start_time_in_mix,
                 end: person.start_time_in_mix + 0.5,
                 onStart: function( options ) {
-                    scroll_to_slide(person['id'] + 1);
+                    scroll_to_slide(person['id']);
                     return false;
                 },
                 onEnd: function( options ) {}
             });
         }
 
-        slide_output += JST.slide({ artist: person });
-        audio_output += JST.slidenav({ artist: person });
-        browse_output += JST.browse({ artist: person });
-        endlist_output += JST.endlist({ artist: person });
+        slide_html += JST.slide({ artist: person });
+        audio_html += JST.slidenav({ artist: person });
+        browse_html += JST.browse({ artist: person });
+        end_list_html += JST.endlist({ artist: person });
 
     });
 
     slideshow_data.push({ id: PEOPLE.length + 1, cue_point: audio_length - 30 });
 
-    $titlecard.after(slide_output);
-    $('#send').before(audio_output);
+    $titlecard.after(slide_html);
+    $('#send').before(audio_html);
 
     // rename the closing slides with the correct ID numbers
     var end_id = PEOPLE.length + 1;
@@ -139,14 +139,9 @@ var goto_slide = function(id) {
      * Determine whether to shift to the next slide
      * with audio, or without audio.
      */
-
-    //
-    // The data is structured differently this year, e.g., not indexed by ID.
-    // URLP.
-    //
     console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
-    if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) { // slideshow_data structure is different.
+    if (!audio_supported || $player.data().jPlayer.status.paused || slideshow_data[id] === undefined) {
         scroll_to_slide(id);
         if (slideshow_data[id] !== undefined) {
             $player.jPlayer('pause', slideshow_data[id]['cue_start']);
@@ -164,14 +159,8 @@ var play_slide = function(id) {
     /*
      * Play a slide at the correct audio cue.
      */
-
-    //
-    // The data is structured differently this year, e.g., not indexed by ID.
-    // URLP.
-    //
-
     if (audio_supported) {
-        $player.jPlayer('play', slideshow_data[id]['cue_start']); // slideshow_data structure is different.
+        $player.jPlayer('play', slideshow_data[id]['cue_start']);
     } else {
         scroll_to_slide(id);
     }
@@ -304,8 +293,8 @@ $(document).ready(function() {
         $player.jPlayer({
             ready: function () {
                 $(this).jPlayer('setMedia', {
-                    mp3: "http://apps.npr.org/music-memoriam-2012/audio/artists2012.mp3",
-                    oga: "http://apps.npr.org/music-memoriam-2012/audio/artists2012.ogg"
+                    mp3: "audio/in-memoriam.mp3",
+                    oga: "audio/in-memoriam.ogg"
                 }).jPlayer("pause");
             },
             play: function() { // To avoid both jPlayers playing together.
@@ -316,9 +305,7 @@ $(document).ready(function() {
             },
             swfPath: "js",
             supplied: "oga, mp3"
-    //      ,errorAlerts:true
         });
-        // associate jPlayer with Popcorn
         pop = Popcorn('#jp_audio_0');
     }
 
