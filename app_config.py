@@ -18,7 +18,7 @@ PROJECT_NAME = 'In Memoriam: Musicians And Entertainers Who Died In 2013'
 
 # Project name in urls
 # Use dashes, not underscores!
-PROJECT_SLUG = 'in-memoriam-2013'
+PROJECT_SLUG = 'music-memoriam-2013'
 
 # The name of the repository containing the source
 REPOSITORY_NAME = 'in-memoriam-2013'
