@@ -42,5 +42,5 @@ data/copy.xls
 tumblr-theme.html
 www/live-data/*.json
 data/*.csv
-www/img/people/unversioned/*.jpg
-www/img/people/versioned/*.jpg
+unversioned/*.jpg
+www/img/people/*.jpg

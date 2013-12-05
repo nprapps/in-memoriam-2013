@@ -2,6 +2,7 @@
 
 import csv
 import json
+import re
 
 import requests
 
@@ -25,6 +26,26 @@ class Person(object):
     """
     Represents a single person from in memoriam.
     """
+
+    def slugify(self):
+        """
+        Generate a slug for this artist.
+        """
+        bits = []
+
+        for field in ['first_name', 'last_name']:
+            attr = getattr(self, field)
+
+            if attr:
+                attr = attr.lower()
+                attr = re.sub(r"[^\w\s]", '', attr)
+                attr = re.sub(r"\s+", '-', attr)
+
+                bits.append(attr)
+
+        setattr(self, "slug", '-'.join(bits))
+
+
     def __init__(self, **kwargs):
         """
         Should handle any data cleanup.
@@ -91,7 +112,7 @@ def load_photos(people):
 
     for person in people:
         r = requests.get('http://apps.npr.org/in-memoriam-2013/img/people/originals/%s' % person['photo_filename'])
-        with open('www/img/people/unversioned/%s' % person['photo_filename'], 'wb') as writefile:
+        with open('unversioned/%s' % person['photo_filename'], 'wb') as writefile:
             writefile.write(r.content)
             print 'Downloading photo: %s' % person['photo_filename'].replace('_', ' ').replace('.jpg', '')
 

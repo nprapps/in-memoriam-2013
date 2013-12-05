@@ -465,11 +465,11 @@ App-specific
 def cut_mugs():
     from PIL import Image
 
-    output_dir = 'www/img/people/versioned/'
+    output_dir = 'www/img/people/'
     widths = [120, 480, 979, 1200]
     local('rm -rf %s*.jpg' % output_dir)
 
-    for path in glob('www/img/people/unversioned/*.jpg'):
+    for path in glob('unversioned/*.jpg'):
         filename = os.path.split(path)[-1]
         name = os.path.splitext(filename)[0]
 

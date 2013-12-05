@@ -230,7 +230,7 @@ var resize_slideshow = function() {
     } else {
         $panel_images.height('100%');
     }
-    
+
     // reset navbar position
     var navpos = $audio_nav.position;
     $slide_list.css('top',navpos.top + $audio_nav.height());
