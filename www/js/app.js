@@ -17,9 +17,10 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
+var audio_supported = !($.browser.msie === true && $.browser.version < 9);
+var mobile_breakpoint = 767;
 var num_slides;
 var pop;
-var audio_supported = !($.browser.msie === true && $.browser.version < 9);
 var slide_list_open = false;
 
 var slide_list_toggle = function(mode) {
@@ -212,8 +213,8 @@ var resize_slideshow = function() {
     var new_height = $(window).height() - $audio.height();
     var height_43 = Math.ceil(($content.width() * 3) / 4);
 
-    if (new_width <= 480) {
-        new_height = 600;
+    if (new_width <= mobile_breakpoint) {
+        new_height = 1000;
     } else if (new_height > height_43) {
         // image ratio can go no larger than 4:3
         new_height = height_43;
@@ -225,7 +226,7 @@ var resize_slideshow = function() {
     $slide_wrap.width((num_slides * new_width) + 'px').height(new_height + 'px');
     $titlecard.height(new_height + 'px');
 
-    if (new_width <= 480) {
+    if (new_width <= mobile_breakpoint) {
         $panel_images.height((Math.ceil(new_width * 9) / 16) + 'px');
     } else {
         $panel_images.height('100%');

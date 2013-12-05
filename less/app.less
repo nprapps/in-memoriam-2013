@@ -18,10 +18,13 @@
 
 // Breakpoints
 @screen-large-above: ~"screen and (min-width: 1201px)";
+@screen-large-only: ~"screen and (min-width: 980px) and (max-width: 1200px)";
 @screen-large: ~"screen and (max-width: 1200px)";
 @screen-medium-above: ~"screen and (min-width: 980px)";
+@screen-medium-only: ~"screen and (min-width: 768px) and (max-width: 979px)";
 @screen-medium: ~"screen and (max-width: 979px)";
 @screen-small-above: ~"screen and (min-width: 768px)";
+@screen-small-only: ~"screen and (min-width: 481px) and (max-width: 767px)";
 @screen-small: ~"screen and (max-width: 767px)";
 @screen-tiny-above: ~"screen and (min-width: 481px)";
 @screen-tiny: ~"screen and (max-width: 480px)";
@@ -44,18 +47,21 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     position: static;
     z-index: 1000;
     height: @audio-height;
-    padding: 0 0 0 20px;
     overflow: hidden;
     background-color: @slide-bg-color;
     border-top: 1px solid @nav-border;
     border-bottom: 1px solid @nav-border;
     .clearfix();
+    
+    @media @screen-tiny-above { padding-left: 20px; }
 
     .branding {
-        display: inline-block;
         padding-right: 30px;
         float: left;
         cursor: pointer;
+        display: none;
+        
+        @media @screen-tiny-above { display: inline-block; }
 
         h2 {
             background: url('@{img-root}/hed-in-memoriam-small.png') no-repeat 0 center;
@@ -138,7 +144,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
     
     &.back-next {
-        width: 77px;
         line-height: @audio-height;
         text-align: center;
         float: right;
@@ -146,6 +151,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         border-right: none;
         font-weight: bold;
         white-space: nowrap;
+        width: 40px;
+        
+        @media @screen-small-above { width: 77px; }
         
         i { display: inline-block; }
         span {
@@ -166,9 +174,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     border-right: 1px solid @nav-border;
     .clearfix();
     
+    @media @screen-small-above { width: 271px; }
+    @media @screen-medium-above { width: 483px; }
     @media @screen-large-above { width: 600px; }
-    @media @screen-large { width: 483px; }
-    @media @screen-medium { width: 271px; }
 }
 .jp-jplayer { 
     width: 0px; 
@@ -243,8 +251,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .clearfix();
 
     .browse-artist {
-        width: 25%;
-        float: left;
         clear: right;
         overflow: hidden;
         max-height: 64px;
@@ -277,55 +283,124 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 #list-nav {
-    width: 80%;
     position: absolute;
-    left: 10%; // (100 - width)/2
     z-index: 1100;
     background-color: @slide-bg-color;
     border-radius: 0 0 6px 6px;
     border: 1px solid @nav-border;
     border-top: none;
     margin-top: -1px;
+    width: 300px; 
+    left: 10px;
+    
+    @media @screen-tiny-above {
+        width: 80%;
+        left: 10%;
+    }
     
     .browse-artist {
-        @media @screen-large-above { width: 20%; }
-        @media @screen-medium {
-            width: 33%;
-            
-            &:nth-child(3n+3) { width: 34%; }
-            &.browse26 { width: 67%; }
-        }
-        
-        &.browse26 { 
-            width: 75%;
+        width: auto;
+        float: left;
+        clear: right;
 
-            @media @screen-large-above {
-                width: 100%;
-                float: none;
-            }
+        @media @screen-tiny { 
+            width: 50%;
+            &:nth-child(2n+1) { clear: both; }
         }
+        @media @screen-small-only { 
+            width: 33%;
+            &:nth-child(3n+1) { 
+                clear: both;
+                width: 34%;
+            }
+            &:last-child { width: 66%; }
+        }
+        @media @screen-medium-only {
+            width: 25%;
+            &:nth-child(4n+1) { clear: both; }
+            &:last-child { width: 75%; }
+        }
+        @media @screen-large-only {
+            width: 25%;
+            &:nth-child(4n+1) { clear: both; }
+            &:last-child { width: 75%; }
+        }
+        @media @screen-large-above {
+            width: 20%;
+            &:nth-child(5n+1) { clear: both; }
+            &:last-child { width: 100%; }
+        }
+    }
+    
+    a {
+        @media @screen-small {
+            padding-top: 15px; 
+            padding-bottom: 15px; 
+        }
+    }
+
+    img {
+        display: none;
+
+        @media @screen-small-above { display: block; }
     }
 }
 
 #list-nav-end {
     margin-bottom: 20px;
+    .clearfix();
+    
+    h2 {
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 1.4;
+        margin: 0 0 2px 70px; 
+        color:#fff;
+    }
+    
+    p {
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0 0 0 70px;
+    }
 
-    h2, p { margin-left: 70px; }
-    img { margin-right: 0; }
+    img { 
+        float: left;
+        width: 60px;
+        height: 44px;
+        border: 1px solid @nav-border;
+        margin-right: 0;
+    }
     a { 
         padding: 0; 
         display: inline; 
         border: none;
+        color: @nav-text-color;
         
-        &:hover, &:active { background-color: none; }
+        &:hover, 
+        &:active { 
+            color: @nav-text-hover;
+            text-decoration: none;
+            background-color: none;
+
+            img { border-color: @text-gray; }
+        }
     }
     
     .browse-artist {
-        @media @screen-large-above { height: 55px; }
-        @media @screen-medium { 
-            width: 33%;
+        overflow: hidden;
+        border-top: 1px solid @nav-button-color;
+        padding: 10px 0;
+        .clearfix();
+
+        @media @screen-tiny-above {
+            width: 50%;
             float: left;
+            height: 60px;
         }
+        @media @screen-small-above { width: 33%; }
+        @media @screen-medium-above { width: 25%; }
+        @media @screen-large-above { width: 20%; }
     }
 }
 
@@ -358,13 +433,17 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 .panel-bg {
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; 
-    left: 0;
+    height: 300px;
     .background-size(cover);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    
+    @media @screen-small-above {
+        height: 100%;
+        position: absolute;
+        top: 0; 
+        left: 0;
+    }
     
     .panel-van-cliburn &,
     .panel-slim-whitman &,
@@ -382,14 +461,19 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 .panel-description {
-    display: block;
-    width: 35%;
-    background: #111;
-    background: @shade-bg;
-    padding: 15px 20px 25px 20px;
+    padding: 20px;
     text-decoration: none;
-    position: absolute; bottom: 5%; left: 0;
     text-shadow: @shadow;
+    
+    @media @screen-small-above {
+        width: 35%;
+        background: #111;
+        background: @shade-bg;
+        padding: 15px 20px 25px 20px;
+        position: absolute; 
+        bottom: 5%; 
+        left: 0;
+    }
     
     a { 
         color: #fff; 
@@ -413,32 +497,32 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         font-size: 14px;
 
         @media @screen-small-above { font-size: 16px; }
+        
+        &.dates { font-style: italic; }
+        &.desc { margin-bottom: 20px; }
+        &.now-playing {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        &.photo-credit {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 0;
+        }
+        &.npr-obit, 
+        &.npr-artist { 
+            font-weight: normal;
+            font-style: normal;
+            font-size: 14px;
+            color: #aaa;
+        }
+        &.npr-obit + .npr-artist { margin-top: -5px; }
     }
-    .dates { font-style: italic; }
-    .desc { margin-bottom: 20px; }
-    .npr-obit, 
-    .npr-artist { 
-        font-weight: normal;
-        font-style: normal;
-        font-size: 14px;
-        color: #aaa;
-    }
-    .npr-obit + .npr-artist { margin-top: -5px; }
-    .now-playing, 
-    .photo-credit { 
-        font-weight: normal;
-        font-style: normal;
-        font-size: 12px;
-        color: #aaa;
-    }
-    .now-playing { 
-        margin-top: 20px; 
-        margin-bottom: 5px;
-    }
-    .photo-credit { margin-bottom: 0; }
-    
+
     .panel-donald-byrd &,
-    .panel panel-van-cliburn &,
+    .panel-van-cliburn &,
     .panel-bebo-valds &,
     .panel-colin-davis &,
     .panel-janos-starker &,
@@ -531,102 +615,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     h3 { font-weight: normal; font-size: 18px; }
     p { color: @text-gray; }
 }
-#list-nav-end {
-    margin-bottom: 20px;
-    .clearfix();
-
-    .browse-artist {
-        width: 25%;
-        float: left;
-        height: 60px;
-        overflow: hidden;
-        border-top: 1px solid @nav-button-color;
-        padding: 10px 0;
-        .clearfix();
-    }
-    img {
-        float: left;
-        width: 60px;
-        height: 44px;
-        border: 1px solid @nav-border;
-    }
-    h2 { 
-        font-weight: bold;
-        font-size: 13px;
-        line-height: 1.4;
-        margin: 0 0 2px 70px; 
-        color:#fff;
-    }
-    p {
-        font-size: 12px;
-        line-height: 1.4;
-        margin: 0 0 0 70px;
-    }
-    a { color: @nav-text-color; }
-    a:hover, a.active { 
-        color: @nav-text-hover;
-        text-decoration: none;
-        
-        img { border-color: @text-gray; }
-    }
-}
 
 #share-buttons {
     margin-bottom: 20px;
 
     .fb-like { margin-bottom:10px; }
-}
-
-
-// MEDIA QUERIES
-@media (max-width: 767px) {
-    .nav-btn.back-next { padding-left: 0; padding-right: 0; width: 40px; }
-
-    #list-nav {
-        img { display: none; }
-        a { padding-top: 15px; padding-bottom: 15px; border-right: 1px solid @nav-border; }
-        .browse-artist:nth-child(3n+3) a { border-right: none; }
-        .browse-artist.browse26 a { border-right: none; }
-    }
-    #list-nav-end .browse-artist { height: 80px; }
-}
-@media (max-width: 640px) {
-    .panel-description {
-        bottom: 0; width: auto; padding-bottom: 15px;
-
-        h2 { font-size: 24px; }
-        p { font-size: 13px; }
-        p.dates, p.now-playing { display: inline; padding-right: 5px; border-right: 1px solid #CCC; }
-        p.desc, p.photo-credit { display: inline; }
-        p.npr-obit { margin-top: 10px; }
-    }
-    #list-nav {
-        .browse-artist, .browse-artist.browse26, .browse-artist:nth-child(3n+3)  { width: 50%; }
-        h2 { font-size: 12px; }
-        .browse-artist a { border-right: none; }
-        .browse-artist:nth-child(odd) a { border-right: 1px solid @nav-border; }
-    }
-    #list-nav-end .browse-artist { width: 50%; float: left; height: 60px; }
-}
-@media (max-width: 480px) {
-    #audio-navbar { padding-left: 0; }
-    #audio-navbar .branding { display: none; }
-    .panel-bg { height: 300px; position: relative; top: auto; left: auto; }
-    .panel-description {
-        position: relative; bottom: auto; left: auto; top: auto; right: auto;
-        width: auto;
-        background: none;
-        padding: 20px;
-        margin: 0;
-
-        p.dates, p.now-playing { display: block; padding-right: 0; border-right: none; }
-        p.desc, p.photo-credit { display: block; }
-    }
-    #list-nav-end .browse-artist { width: 100%; float: none; height: auto; }
-
-    #list-nav {
-        width: 300px; left: 10px;
-
-        .browse-artist a { display: table-cell; width: 150px; vertical-align: middle; height: 40px; padding-top: 0; padding-bottom: 0; }
-    }
 }
