@@ -123,7 +123,6 @@ var load_slideshow_data = function() {
         'last_name': 'Index & Credits'
     }}));
 
-
     // rename the closing slides with the correct ID numbers
     var end_id = PEOPLE.length + 1;
     var end_cue = AUDIO_LENGTH - 30;
@@ -154,7 +153,6 @@ var load_slideshow_data = function() {
         var id = parseInt($(this).attr('data-id'), 0);
         $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').removeClass('active');
     });
-
 
     $slide_list_end.find('a.slidelink').on('click', function() {
         var id = parseInt($(this).attr('data-id'), 0);
@@ -193,7 +191,7 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        console.log('play_slide' + PEOPLE[id]['cue_point']);
+        console.log('play_slide ' + PEOPLE[id]['cue_point']);
         $player.jPlayer('play', PEOPLE[id]['cue_point']);
     } else {
         scroll_to_slide(id);
@@ -217,8 +215,9 @@ var resize_slideshow = function() {
     }
 
     $s.width(new_width + 'px').height(new_height + 'px');
+    $panels.width((new_width - 2) + 'px').height(new_height + 'px');
+    console.log(new_width);
     $slide_wrap.width((num_slides * new_width) + 'px').height(new_height + 'px');
-    $panels.width(new_width + 'px').height(new_height + 'px');
     $titlecard.height(new_height + 'px');
 
     if (new_width <= 480) {
