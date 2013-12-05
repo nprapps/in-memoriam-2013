@@ -69,9 +69,8 @@ var load_slideshow_data = function() {
     var end_list_html = '';
 
     _.each(PEOPLE, function(person, index, list){
-
-        person['id'] = index;
-
+//        person['id'] = index;
+        person['id'] = index + 1;
 
         person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
 
