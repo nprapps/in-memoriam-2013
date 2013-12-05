@@ -59,6 +59,8 @@ class Person(object):
 
             setattr(self, key, value)
 
+        self.slugify()
+
 def init():
     get_csv()
     people = parse_csv()
