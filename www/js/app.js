@@ -140,6 +140,11 @@ var load_slideshow_data = function() {
         $slide_list.find('a[data-id="' + id + '"]').removeClass('active');
     });
 
+    $slide_nav.find('.slide-nav-item').on('click', function() {
+        var id = parseInt($(this).attr('data-id'), 0);
+        goto_slide(id);
+    });
+
     $slide_list.find('a').on('click', function() {
         var id = parseInt($(this).attr('data-id'), 0);
         goto_slide(id);
