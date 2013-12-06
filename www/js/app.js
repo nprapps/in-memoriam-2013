@@ -17,7 +17,12 @@ var $panels;
 var $panel_images;
 
 var active_slide = 0;
-var audio_supported = !($.browser.msie === true && $.browser.version < 9);
+
+var audio_supported = false;
+if (Modernizr.audio.mp3 == 'probably' || Modernizr.audio.ogg  == 'probably') {
+    audio_supported = true;
+}
+
 var mobile_breakpoint = 767;
 var num_slides;
 var pop;
