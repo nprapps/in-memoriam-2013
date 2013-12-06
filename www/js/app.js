@@ -133,7 +133,7 @@ var load_slideshow_data = function() {
     $('#s' + end_id).css('left',((end_cue / AUDIO_LENGTH) * 100) + '%');
     $('#panelend').attr('id','panel' + end_id);
 
-    $slide_nav.find('.slide-nav-item').on('hover', function() {
+    $slide_nav.find('.slide-nav-item').hover(function() {
         var id = parseInt($(this).attr('data-id'), 0);
         $slide_list.find('a[data-id="' + id + '"]').addClass('active');
     }, function() {
@@ -152,7 +152,7 @@ var load_slideshow_data = function() {
         slide_list_toggle('close');
     });
 
-    $slide_list.find('a').on('hover', function() {
+    $slide_list.find('a').hover(function() {
         var id = parseInt($(this).attr('data-id'), 0);
         $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').addClass('active');
     }, function() {
