@@ -19,9 +19,9 @@ var $panel_images;
 var active_slide = 0;
 
 var audio_supported = false;
-if (Modernizr.audio.mp3 == 'probably' || Modernizr.audio.ogg  == 'probably') {
+//if (Modernizr.audio.mp3 == 'probably' || Modernizr.audio.ogg  == 'probably') {
     audio_supported = true;
-}
+//}
 
 var mobile_breakpoint = 767;
 var num_slides;
@@ -331,8 +331,8 @@ $(document).ready(function() {
         $player.jPlayer({
             ready: function () {
                 $(this).jPlayer('setMedia', {
-                    mp3: "audio/in-memoriam.mp3",
-                    oga: "audio/in-memoriam.ogg"
+                    oga: "http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg",
+                    mp3: "http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3"
                 }).jPlayer("pause");
             },
             play: function() { // To avoid both jPlayers playing together.
