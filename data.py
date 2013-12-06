@@ -9,6 +9,8 @@ import requests
 FIELDNAMES = [
     'first_name',
     'last_name',
+    'caps_first_name',
+    'caps_last_name',
     'artist_page_seamus_id',
     'date_of_birth',
     'date_of_death',
