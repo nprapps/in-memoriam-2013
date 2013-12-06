@@ -23,6 +23,8 @@ var audio_supported = false;
     audio_supported = true;
 //}
 
+var end_id;
+var end_cue;
 var mobile_breakpoint = 767;
 var num_slides;
 var pop;
@@ -75,7 +77,6 @@ var load_slideshow_data = function() {
     var end_list_html = '';
 
     _.each(PEOPLE, function(person, index, list){
-//        person['id'] = index;
         person['id'] = index + 1;
 
         person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
@@ -94,10 +95,6 @@ var load_slideshow_data = function() {
         }
 
         if (audio_supported) {
-            if (person['id'] === 0) {
-                person.start_time_in_mix += 1;
-            }
-
             pop.code({
                 start: person.start_time_in_mix,
                 end: person.start_time_in_mix + 0.5,
@@ -130,8 +127,29 @@ var load_slideshow_data = function() {
     }}));
 
     // rename the closing slides with the correct ID numbers
-    var end_id = PEOPLE.length + 1;
-    var end_cue = AUDIO_LENGTH - 30;
+    end_id = num_slides - 1;
+    end_cue = AUDIO_LENGTH - 30;
+
+    if (audio_supported) {
+        pop.code({
+            start: 0,
+            end: 0.5,
+            onStart: function( options ) {
+                scroll_to_slide(0);
+                return false;
+            },
+            onEnd: function( options ) {}
+        });
+        pop.code({
+            start: end_cue,
+            end: end_cue + 0.5,
+            onStart: function( options ) {
+                scroll_to_slide(end_id);
+                return false;
+            },
+            onEnd: function( options ) {}
+        });
+    }
 
     $('#send').attr('id','s' + end_id);
     $('#s' + end_id).attr('data-id', end_id);
@@ -183,12 +201,14 @@ var goto_slide = function(id) {
      */
     console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
-    if (!audio_supported || $player.data().jPlayer.status.paused || PEOPLE[id-1] === undefined) {
+    if (!audio_supported || $player.data().jPlayer.status.paused) {
         scroll_to_slide(id);
         if (PEOPLE[id-1] !== undefined) {
             $player.jPlayer('pause', PEOPLE[id-1]['start_time_in_mix']);
-        } else if (id == (num_slides - 1)) {
-            $player.jPlayer('pause', AUDIO_LENGTH);
+        } else if (id == end_id) {
+            $player.jPlayer('pause', end_cue);
+        } else if (id == 0) {
+            $player.jPlayer('pause', 0);
         }
     } else {
         play_slide(id);
@@ -202,47 +222,17 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        console.log('play cuepoint: ' + PEOPLE[id-1]['start_time_in_mix']);
-        $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
+        if (PEOPLE[id-1] !== undefined) {
+            console.log('play cuepoint: ' + PEOPLE[id-1]['start_time_in_mix']);
+            $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
+        } else if (id == end_id) {
+            $player.jPlayer('play', end_cue);
+        } else if (id == 0) {
+            $player.jPlayer('pause', 0);
+        }
     } else {
         scroll_to_slide(id);
     }
-};
-
-var resize_slideshow = function() {
-    /*
-     * Resize slideshow panels based on screen width
-     */
-    console.log('resize_slideshow()');
-    var new_width = $content.width();
-    var new_height = $(window).height() - $audio.height();
-    var height_43 = Math.ceil(($content.width() * 3) / 4);
-
-    if (new_width <= mobile_breakpoint) {
-        new_height = 1000;
-    } else if (new_height > height_43) {
-        // image ratio can go no larger than 4:3
-        new_height = height_43;
-    }
-
-    $s.width(new_width + 'px').height(new_height + 'px');
-    $panels.width((new_width - 2) + 'px').height(new_height + 'px');
-    console.log(new_width);
-    $slide_wrap.width((num_slides * new_width) + 'px').height(new_height + 'px');
-    $titlecard.height(new_height + 'px');
-
-    if (new_width <= mobile_breakpoint) {
-        $panel_images.height((Math.ceil(new_width * 9) / 16) + 'px');
-    } else {
-        $panel_images.height('100%');
-    }
-
-    // reset navbar position
-    var navpos = $audio_nav.position;
-    $slide_list.css('top',navpos.top + $audio_nav.height());
-
-    // reset slide position
-    scroll_to_slide(active_slide);
 };
 
 var scroll_to_slide = function(id) {
@@ -300,6 +290,42 @@ var handle_keypress = function(ev) {
     return true;
 };
 
+var resize_slideshow = function() {
+    /*
+     * Resize slideshow panels based on screen width
+     */
+    console.log('resize_slideshow()');
+    var new_width = $content.width();
+    var new_height = $(window).height() - $audio.height();
+    var height_43 = Math.ceil(($content.width() * 3) / 4);
+
+    if (new_width <= mobile_breakpoint) {
+        new_height = 1000;
+    } else if (new_height > height_43) {
+        // image ratio can go no larger than 4:3
+        new_height = height_43;
+    }
+
+    $s.width(new_width + 'px').height(new_height + 'px');
+    $panels.width((new_width - 2) + 'px').height(new_height + 'px');
+    console.log(new_width);
+    $slide_wrap.width((num_slides * new_width) + 'px').height(new_height + 'px');
+    $titlecard.height(new_height + 'px');
+
+    if (new_width <= mobile_breakpoint) {
+        $panel_images.height((Math.ceil(new_width * 9) / 16) + 'px');
+    } else {
+        $panel_images.height('100%');
+    }
+
+    // reset navbar position
+    var navpos = $audio_nav.position;
+    $slide_list.css('top',navpos.top + $audio_nav.height());
+
+    // reset slide position
+    scroll_to_slide(active_slide);
+};
+
 $(document).ready(function() {
     num_slides = PEOPLE.length + 2;
 
@@ -349,7 +375,13 @@ $(document).ready(function() {
 
     $(window).on('resize', resize_slideshow);
 
-    $('#title-button').on('click', function() { play_slide(1); });
+    $('#title-button').on('click', function() { 
+        if (audio_supported) {
+            $player.jPlayer('play'); 
+        } else {
+            goto_slide(1);
+        }
+    });
 
     $slide_browse_btn.on('click', function(e){ slide_list_toggle(); });
 
