@@ -183,10 +183,10 @@ var goto_slide = function(id) {
      */
     console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
-    if (!audio_supported || $player.data().jPlayer.status.paused || PEOPLE[id] === undefined) {
+    if (!audio_supported || $player.data().jPlayer.status.paused || PEOPLE[id-1] === undefined) {
         scroll_to_slide(id);
-        if (PEOPLE[id] !== undefined) {
-            $player.jPlayer('pause', PEOPLE[id]['start_time_in_mix']);
+        if (PEOPLE[id-1] !== undefined) {
+            $player.jPlayer('pause', PEOPLE[id-1]['start_time_in_mix']);
         } else if (id == (num_slides - 1)) {
             $player.jPlayer('pause', AUDIO_LENGTH);
         }
@@ -202,9 +202,8 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        var cuepoint = PEOPLE[id]['start_time_in_mix'];
-        console.log('play cuepoint: ' + PEOPLE[id]['start_time_in_mix']);
-        $player.jPlayer('play', PEOPLE[id]['start_time_in_mix']);
+        console.log('play cuepoint: ' + PEOPLE[id-1]['start_time_in_mix']);
+        $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
     } else {
         scroll_to_slide(id);
     }
@@ -331,18 +330,18 @@ $(document).ready(function() {
         $player.jPlayer({
             ready: function () {
                 $(this).jPlayer('setMedia', {
-                    oga: "http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg",
-                    mp3: "http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3"
-                }).jPlayer("pause");
+                    oga: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg',
+                    mp3: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+                }).jPlayer('pause');
             },
             play: function() { // To avoid both jPlayers playing together.
-                $(this).jPlayer("pauseOthers");
+                $(this).jPlayer('pauseOthers');
             },
             ended: function (event) {
-                $(this).jPlayer("pause");
+                $(this).jPlayer('pause');
             },
-            swfPath: "js",
-            supplied: "oga, mp3"
+            swfPath: 'js',
+            supplied: 'oga, mp3'
         });
 
         pop = Popcorn('#jp_audio_0');
