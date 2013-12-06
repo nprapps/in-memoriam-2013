@@ -181,7 +181,7 @@ var goto_slide = function(id) {
     if (!audio_supported || $player.data().jPlayer.status.paused || PEOPLE[id] === undefined) {
         scroll_to_slide(id);
         if (PEOPLE[id] !== undefined) {
-            $player.jPlayer('pause', PEOPLE[id]['cue_point']);
+            $player.jPlayer('pause', PEOPLE[id]['start_time_in_mix']);
         } else if (id == (num_slides - 1)) {
             $player.jPlayer('pause', AUDIO_LENGTH);
         }
@@ -197,8 +197,9 @@ var play_slide = function(id) {
      * Play a slide at the correct audio cue.
      */
     if (audio_supported) {
-        console.log('play_slide ' + PEOPLE[id]['cue_point']);
-        $player.jPlayer('play', PEOPLE[id]['cue_point']);
+        var cuepoint = PEOPLE[id]['start_time_in_mix'];
+        console.log('play cuepoint: ' + PEOPLE[id]['start_time_in_mix']);
+        $player.jPlayer('play', PEOPLE[id]['start_time_in_mix']);
     } else {
         scroll_to_slide(id);
     }
