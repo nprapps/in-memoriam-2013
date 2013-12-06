@@ -169,6 +169,8 @@ var load_slideshow_data = function() {
     $panel_images = $panels.find('.panel-bg');
 
     resize_slideshow();
+    
+    goto_slide(26);
 };
 
 var goto_slide = function(id) {
