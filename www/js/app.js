@@ -207,7 +207,7 @@ var goto_slide = function(id) {
             $player.jPlayer('pause', PEOPLE[id-1]['start_time_in_mix']);
         } else if (id == end_id) {
             $player.jPlayer('pause', end_cue);
-        } else if (id == 0) {
+        } else if (id === 0) {
             $player.jPlayer('pause', 0);
         }
     } else {
@@ -227,7 +227,7 @@ var play_slide = function(id) {
             $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
         } else if (id == end_id) {
             $player.jPlayer('play', end_cue);
-        } else if (id == 0) {
+        } else if (id === 0) {
             $player.jPlayer('pause', 0);
         }
     } else {
@@ -356,8 +356,8 @@ $(document).ready(function() {
         $player.jPlayer({
             ready: function () {
                 $(this).jPlayer('setMedia', {
-                    oga: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg',
-                    mp3: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+                    oga: APP_CONFIG.OGG_LINK,
+                    mp3: APP_CONFIG.MP3_LINK
                 }).jPlayer('pause');
             },
             play: function() { // To avoid both jPlayers playing together.
@@ -366,7 +366,7 @@ $(document).ready(function() {
             ended: function (event) {
                 $(this).jPlayer('pause');
             },
-            swfPath: 'js',
+            swfPath: 'js/lib',
             supplied: 'oga, mp3'
         });
 
@@ -375,9 +375,9 @@ $(document).ready(function() {
 
     $(window).on('resize', resize_slideshow);
 
-    $('#title-button').on('click', function() { 
+    $('#title-button').on('click', function() {
         if (audio_supported) {
-            $player.jPlayer('play'); 
+            $player.jPlayer('play');
         } else {
             goto_slide(1);
         }
