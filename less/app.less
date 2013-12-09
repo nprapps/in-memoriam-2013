@@ -189,30 +189,39 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         &#back-btn span { padding-left: 5px; }
         &#next-btn span { padding-right: 5px; }
     }
-
-    &#browse-btn {
+    
+    &.secondary-btn {
         float: left;
         font-weight: normal;
-        width: 40px;
+        width: 44px;
 
         i { display: inline-block; }
-        span { display: none; }
+        span { 
+            display: none;
+            font-size: 11px;
+        }
+        
+        &#browse-btn {
+            @media @screen-medium-above {
+                width: 140px;
 
-        @media @screen-medium-above {
-            width: 145px;
-
-            i { display: none; }
-            span { display: inline-block; }
+                i { display: none; }
+                span { display: inline-block; }
+            }
         }
 
-        &.active { background-color: @nav-button-color; }
-    }
-    
-    &#full-screen {
-        float: left;
-        width: 40px;
-        
-        .touch & { display: none; }
+        &#full-screen {
+            .touch & { display: none; }
+
+            @media @screen-medium-above {
+                width: 130px;
+
+                span { 
+                    display: inline-block;
+                    margin-left: 8px;
+                }
+            }
+        }
 
         &.active { background-color: @nav-button-color; }
     }
@@ -228,8 +237,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .clearfix();
 
     @media @screen-small-above { width: 315px; }
-    @media @screen-medium-above { width: 348px; }
-    @media @screen-large-above { width: 569px; }
+    @media @screen-medium-above { width: 263px; }
+    @media @screen-large-above { width: 484px; }
 }
 .jp-jplayer {
     width: 0px;
@@ -263,8 +272,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     background-color: @nav-button-color;
     display: none;
 
-    @media @screen-large-above { width: 527px; }
-    @media @screen-large { width: 306px; }
+    @media @screen-large-above { width: 442px; }
+    @media @screen-large { width: 221px; }
     @media @screen-medium { width: 208px; }
     @media @screen-small-above { display: block; }
 }
