@@ -149,14 +149,14 @@ var load_slideshow_data = function() {
         var id = parseInt($(this).attr('data-id'), 0);
         goto_slide(id);
     });
-    
+
     $slide_browse_btn.on('click', function() {
         goto_slide(end_id);
     });
 
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
-    
+
     goto_slide(1);
 
     resize_slideshow();
@@ -181,12 +181,12 @@ var goto_slide = function(id) {
     } else {
         play_slide(id);
     }
-    
+
     $b.removeClass().addClass('slide' + id);
-    
-    if(id != 0 && !$audio_nav.hasClass('fadeIn')) {
+
+    if(id !== 0 && !$audio_nav.hasClass('fadeIn')) {
         $audio_nav.addClass('animated fadeIn');
-    } else if (id == 0) {
+    } else if (id === 0) {
         $audio_nav.removeClass('animated fadeIn');
     }
 
