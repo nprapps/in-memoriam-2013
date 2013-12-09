@@ -35,9 +35,9 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: @text-gray;
-//    background-color: @slide-bg-color;
     -webkit-font-smoothing: antialiased;
 
+    background-color: @slide-bg-color;
     background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
     // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
 }
@@ -178,13 +178,13 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         white-space: nowrap;
         width: 40px;
 
-        @media @screen-small-above { width: 77px; }
+        @media @screen-medium-above { width: 77px; }
 
         i { display: inline-block; }
         span {
             display: none;
 
-            @media @screen-small-above { display: inline-block; }
+            @media @screen-medium-above { display: inline-block; }
         }
         &#back-btn span { padding-left: 5px; }
         &#next-btn span { padding-right: 5px; }
@@ -207,6 +207,13 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
         &.active { background-color: @nav-button-color; }
     }
+    
+    &#full-screen {
+        float: left;
+        width: 40px;
+
+        &.active { background-color: @nav-button-color; }
+    }
 }
 
 
@@ -218,9 +225,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     border-right: 1px solid @nav-border;
     .clearfix();
 
-    @media @screen-small-above { width: 281px; }
-    @media @screen-medium-above { width: 388px; }
-    @media @screen-large-above { width: 600px; }
+    @media @screen-small-above { width: 315px; }
+    @media @screen-medium-above { width: 348px; }
+    @media @screen-large-above { width: 569px; }
 }
 .jp-jplayer {
     width: 0px;
@@ -254,9 +261,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     background-color: @nav-button-color;
     display: none;
 
-    @media @screen-large-above { width: 493px; }
-    @media @screen-large { width: 346px; }
-    @media @screen-medium { width: 174px; }
+    @media @screen-large-above { width: 527px; }
+    @media @screen-large { width: 306px; }
+    @media @screen-medium { width: 208px; }
     @media @screen-small-above { display: block; }
 }
 .jp-progress {
@@ -348,14 +355,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         @media @screen-large-above { width: 20%; }
     }
 }
-
-#browse-btn,
-#full-screen {
-    float: left;
-
-    &.active { background-color: @nav-button-color; }
-}
-
 
 // SLIDESHOW
 #slideshow {
@@ -531,7 +530,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         margin: 0 0 22px 0;
         font-size: 42px;
 
-        @media @screen-small-above { font-size: 72px; }
+        @media @screen-small-above { font-size: 64px; }
+        @media @screen-medium-above { font-size: 72px; }
     }
     h2 {
         line-height: 1.5;
