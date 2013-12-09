@@ -1,3 +1,4 @@
+var $b;
 var $content;
 var $s;
 var $slide_wrap;
@@ -190,6 +191,8 @@ var load_slideshow_data = function() {
 
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
+    
+    goto_slide(0);
 
     resize_slideshow();
 };
@@ -212,6 +215,14 @@ var goto_slide = function(id) {
         }
     } else {
         play_slide(id);
+    }
+    
+    $b.removeClass().addClass('slide' + id);
+    
+    if(id != 0 && !$audio_nav.hasClass('fadeIn')) {
+        $audio_nav.addClass('animated fadeIn');
+    } else if (id == 0) {
+        $audio_nav.removeClass('animated fadeIn');
     }
 
     return false;
@@ -307,8 +318,7 @@ var resize_slideshow = function() {
     }
 
     $s.width(new_width + 'px').height(new_height + 'px');
-    $panels.width((new_width - 2) + 'px').height(new_height + 'px');
-    console.log(new_width);
+    $panels.width(new_width + 'px').height(new_height + 'px');
     $slide_wrap.width((num_slides * new_width) + 'px').height(new_height + 'px');
     $titlecard.height(new_height + 'px');
 
@@ -329,6 +339,7 @@ var resize_slideshow = function() {
 $(document).ready(function() {
     num_slides = PEOPLE.length + 2;
 
+    $b = $('body');
     $content = $('#content');
     $s = $('#slideshow');
     $slide_wrap = $('#slideshow-wrap');

@@ -35,12 +35,33 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: @text-gray; 
-    background-color: @slide-bg-color;
+//    background-color: @slide-bg-color;
     -webkit-font-smoothing: antialiased;
+
+    background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
+    // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
 }
 body, h1, h2, h3, h4, h5, h6, p, li {
     font-family: "Gotham SSm", helvetica, arial, sans-serif;
 }
+
+// ANIMATIONS
+.animated {
+    .animation-fill-mode(both);
+    .animation-duration(.5s);
+}
+.fadeIn { .animation-name(fadeIn); }
+.fadeOut { .animation-name(fadeOut); }
+
+@-webkit-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@-moz-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@-o-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+
+@-webkit-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@-moz-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@-o-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
 
 // AUDIO NAV
 #audio-navbar {
@@ -54,6 +75,12 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .clearfix();
     
     @media @screen-tiny-above { padding-left: 20px; }
+    
+    body.slide0 & { 
+//        visibility: hidden;
+        margin-top: -@audio-height;
+        margin-bottom: @audio-height;
+    }
 
     .branding {
         padding-right: 30px;
@@ -423,11 +450,19 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     overflow: hidden;
 }
 .panel {
-    background-color: @slide-bg-color;
     position: relative;
     float: left;
     width: 100%;
     overflow: hidden;
+    border: none;
+    border-radius: 0;
+    .box-shadow(none);
+    background: @slide-bg-color;
+    
+    &.panel-open,
+    &.panel-end {
+        background: none;
+    }
 }
 .panel-bg {
     width: 100%;
@@ -546,11 +581,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 // TITLE AND CLOSING SCREENS
-.panel-open, 
-.panel-end {
-    background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
-    // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
-}
 #title-button {
     display: block;
     color: @text-gray;
