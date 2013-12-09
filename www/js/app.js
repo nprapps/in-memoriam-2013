@@ -10,7 +10,6 @@ var $audio_branding;
 var $audio;
 var $progress;
 var $player;
-var $slide_list;
 var $slide_list_end;
 var $slide_browse_btn;
 var $titlecard;
@@ -29,19 +28,6 @@ var end_cue;
 var mobile_breakpoint = 767;
 var num_slides;
 var pop;
-var slide_list_open = false;
-
-var slide_list_toggle = function(mode) {
-    if (slide_list_open || mode == 'close') {
-        $slide_list.hide();
-        $slide_browse_btn.removeClass('active');
-        slide_list_open = false;
-    } else if (!slide_list_open || mode == 'open') {
-        $slide_list.show();
-        $slide_browse_btn.addClass('active');
-        slide_list_open = true;
-    }
-};
 
 var ap_date = function(mmnt) {
     /*
@@ -109,7 +95,6 @@ var load_slideshow_data = function() {
 
         slide_html += JST.slide({ artist: person });
         audio_html += JST.slidenav({ artist: person });
-        browse_html += JST.browse({ artist: person });
         end_list_html += JST.endlist({ artist: person });
 
     });
@@ -117,15 +102,6 @@ var load_slideshow_data = function() {
     $titlecard.after(slide_html);
     $('#send').before(audio_html);
     $slide_list_end.append(end_list_html);
-
-    $slide_list.append(browse_html);
-
-    $slide_list.append(JST.browse({ artist: {
-        'id': num_slides - 1,
-        'photo_filename': null,
-        'first_name': '',
-        'last_name': 'Index & Credits'
-    }}));
 
     // rename the closing slides with the correct ID numbers
     end_id = num_slides - 1;
@@ -159,29 +135,13 @@ var load_slideshow_data = function() {
 
     $slide_nav.find('.slide-nav-item').hover(function() {
         var id = parseInt($(this).attr('data-id'), 0);
-        $slide_list.find('a[data-id="' + id + '"]').addClass('active');
     }, function() {
         var id = parseInt($(this).attr('data-id'), 0);
-        $slide_list.find('a[data-id="' + id + '"]').removeClass('active');
     });
 
     $slide_nav.find('.slide-nav-item').on('click', function() {
         var id = parseInt($(this).attr('data-id'), 0);
         goto_slide(id);
-    });
-
-    $slide_list.find('a').on('click', function() {
-        var id = parseInt($(this).attr('data-id'), 0);
-        goto_slide(id);
-        slide_list_toggle('close');
-    });
-
-    $slide_list.find('a').hover(function() {
-        var id = parseInt($(this).attr('data-id'), 0);
-        $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').addClass('active');
-    }, function() {
-        var id = parseInt($(this).attr('data-id'), 0);
-        $slide_nav.find('.slide-nav-item[data-id="' + id + '"]').removeClass('active');
     });
 
     $slide_list_end.find('a.slidelink').on('click', function() {
@@ -251,7 +211,6 @@ var scroll_to_slide = function(id) {
      * Scroll horizontally to the correct slide position.
      */
     console.log('scroll_to_slide(' + id + ')');
-    slide_list_toggle('close');
 
     $.smoothScroll({
         direction: 'left',
@@ -328,10 +287,6 @@ var resize_slideshow = function() {
         $panel_images.height('100%');
     }
 
-    // reset navbar position
-    var navpos = $audio_nav.position;
-    $slide_list.css('top',navpos.top + $audio_nav.height());
-
     // reset slide position
     scroll_to_slide(active_slide);
 };
@@ -351,14 +306,11 @@ $(document).ready(function() {
     $audio = $('#audio');
     $progress = $audio.find('.jp-progress-container');
     $player = $('#pop-audio');
-    $slide_list = $('#list-nav');
     $slide_list_end = $('#list-nav-end');
     $slide_browse_btn = $('#browse-btn');
     $titlecard = $('#panel0');
 
     if (!audio_supported) { $audio.hide(); }
-
-    slide_list_toggle('close');
 
     if (audio_supported) {
         /*
@@ -393,12 +345,6 @@ $(document).ready(function() {
             goto_slide(1);
         }
     });
-
-    $slide_browse_btn.on('click', function(e){ slide_list_toggle(); });
-
-    $slide_nav.on('mouseenter', function(e){ slide_list_toggle('open'); });
-
-    $slide_list.on('mouseleave', function(e){ slide_list_toggle('close'); });
 
     $next.on('click', goto_next_slide);
 
