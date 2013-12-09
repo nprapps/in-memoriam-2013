@@ -35,12 +35,33 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: @text-gray;
-    background-color: @slide-bg-color;
+//    background-color: @slide-bg-color;
     -webkit-font-smoothing: antialiased;
+
+    background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
+    // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
 }
 body, h1, h2, h3, h4, h5, h6, p, li {
     font-family: "Gotham SSm", helvetica, arial, sans-serif;
 }
+
+// ANIMATIONS
+.animated {
+    .animation-fill-mode(both);
+    .animation-duration(.5s);
+}
+.fadeIn { .animation-name(fadeIn); }
+.fadeOut { .animation-name(fadeOut); }
+
+@-webkit-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@-moz-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@-o-keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+@keyframes fadeIn {0% { opacity: 0; }100% { opacity: 1; }}
+
+@-webkit-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@-moz-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@-o-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+@keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
 
 // AUDIO NAV
 #audio-navbar {
@@ -54,6 +75,11 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .clearfix();
 
     @media @screen-tiny-above { padding-left: 20px; }
+
+    body.slide0 & {
+        margin-top: -@audio-height;
+        margin-bottom: @audio-height;
+    }
 
     .branding {
         padding-right: 30px;
@@ -124,8 +150,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     position: relative;
     cursor: pointer;
     outline: none;
-    width: 40px;
     height: @audio-height;
+    line-height: @audio-height;
     border-right: 1px solid @nav-border;
     .user-select(none);
 
@@ -144,7 +170,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
 
     &.back-next {
-        line-height: @audio-height;
         text-align: center;
         float: right;
         border-left: 1px solid @nav-border;
@@ -164,7 +189,26 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         &#back-btn span { padding-left: 5px; }
         &#next-btn span { padding-right: 5px; }
     }
+
+    &#browse-btn {
+        float: left;
+        font-weight: normal;
+        width: 40px;
+
+        i { display: inline-block; }
+        span { display: none; }
+
+        @media @screen-medium-above {
+            width: 145px;
+
+            i { display: none; }
+            span { display: inline-block; }
+        }
+
+        &.active { background-color: @nav-button-color; }
+    }
 }
+
 
 // AUDIO PLAYER
 .jp-audio {
@@ -174,8 +218,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     border-right: 1px solid @nav-border;
     .clearfix();
 
-    @media @screen-small-above { width: 271px; }
-    @media @screen-medium-above { width: 483px; }
+    @media @screen-small-above { width: 281px; }
+    @media @screen-medium-above { width: 388px; }
     @media @screen-large-above { width: 600px; }
 }
 .jp-jplayer {
@@ -211,8 +255,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     display: none;
 
     @media @screen-large-above { width: 493px; }
-    @media @screen-large { width: 376px; }
-    @media @screen-medium { width: 225px; }
+    @media @screen-large { width: 346px; }
+    @media @screen-medium { width: 174px; }
     @media @screen-small-above { display: block; }
 }
 .jp-progress {
@@ -247,105 +291,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
 
 // SLIDE NAV
-.slide-list {
-    .clearfix();
-
-    .browse-artist {
-        clear: right;
-        overflow: hidden;
-        max-height: 64px;
-    }
-    img {
-        float: left;
-        width: 60px;
-        height: 44px;
-        margin-right: 10px;
-        border: 1px solid @nav-border;
-    }
-    h2 {
-        font-size: 13px;
-        line-height: 1.3;
-        margin: 0;
-    }
-    a {
-        color: @nav-text-color;
-        display: block;
-        padding: 10px;
-        border-top: 1px solid @nav-button-color;
-        .clearfix();
-    }
-    a:hover, a.active {
-        color: @nav-text-hover;
-        background-color: @nav-button-hover;
-        text-decoration: none;
-    }
-    a:hover img, a.active img { border-color: @text-gray; }
-}
-
-#list-nav {
-    position: absolute;
-    z-index: 1100;
-    background-color: @slide-bg-color;
-    border-radius: 0 0 6px 6px;
-    border: 1px solid @nav-border;
-    border-top: none;
-    margin-top: -1px;
-    width: 300px;
-    left: 10px;
-
-    @media @screen-tiny-above {
-        width: 80%;
-        left: 10%;
-    }
-
-    .browse-artist {
-        width: auto;
-        float: left;
-        clear: right;
-
-        @media @screen-tiny {
-            width: 50%;
-            &:nth-child(2n+1) { clear: both; }
-        }
-        @media @screen-small-only {
-            width: 33%;
-            &:nth-child(3n+1) {
-                clear: both;
-                width: 34%;
-            }
-            &:last-child { width: 66%; }
-        }
-        @media @screen-medium-only {
-            width: 25%;
-            &:nth-child(4n+1) { clear: both; }
-            &:last-child { width: 75%; }
-        }
-        @media @screen-large-only {
-            width: 25%;
-            &:nth-child(4n+1) { clear: both; }
-            &:last-child { width: 75%; }
-        }
-        @media @screen-large-above {
-            width: 20%;
-            &:nth-child(5n+1) { clear: both; }
-            &:last-child { width: 100%; }
-        }
-    }
-
-    a {
-        @media @screen-small {
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-    }
-
-    img {
-        display: none;
-
-        @media @screen-small-above { display: block; }
-    }
-}
-
 #list-nav-end {
     margin-bottom: 44px;
     .clearfix();
@@ -424,11 +369,19 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     overflow: hidden;
 }
 .panel {
-    background-color: @slide-bg-color;
     position: relative;
     float: left;
     width: 100%;
     overflow: hidden;
+    border: none;
+    border-radius: 0;
+    .box-shadow(none);
+    background: @slide-bg-color;
+
+    &.panel-open,
+    &.panel-end {
+        background: none;
+    }
 }
 .panel-bg {
     width: 100%;
@@ -547,11 +500,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 // TITLE AND CLOSING SCREENS
-.panel-open,
-.panel-end {
-    background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
-    // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
-}
 #title-button {
     display: block;
     color: @text-gray;
@@ -634,26 +582,26 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .clearfix();
 
     li {
-    	font-size: 14px;
-    	font-weight: bold;
+        font-size: 14px;
+        font-weight: bold;
 
-    	@media @screen-tiny-above {
+        @media @screen-tiny-above {
             width: 50%;
             float: left;
-    	}
+        }
     }
     a {
-    	display: block;
-    	line-height: 44px;
-    	height: 44px;
-    	overflow: hidden;
-    	text-shadow: none;
-    	color: @nav-text-color;
-    	background-color: @nav-button-color;
-    	background-positon: 0 0;
-    	background-repeat: no-repeat;
-    	padding-left: 55px;
-    	white-space: nowrap;
+        display: block;
+        line-height: 44px;
+        height: 44px;
+        overflow: hidden;
+        text-shadow: none;
+        color: @nav-text-color;
+        background-color: @nav-button-color;
+        background-positon: 0 0;
+        background-repeat: no-repeat;
+        padding-left: 55px;
+        white-space: nowrap;
 
         &:hover,
         &:active {
@@ -663,15 +611,15 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         }
     }
     li.twitter a {
-    	background-image: url('@{img-root}/share-twitter-dark.gif');
-    	margin-bottom: 2px;
+        background-image: url('@{img-root}/share-twitter-dark.gif');
+        margin-bottom: 2px;
 
-    	@media @screen-tiny-above {
-    	    margin-bottom: 0;
-    	    margin-right: 2px;
-    	}
+        @media @screen-tiny-above {
+            margin-bottom: 0;
+            margin-right: 2px;
+        }
     }
     li.facebook a {
-    	background-image: url('@{img-root}/share-facebook-dark.gif');
+        background-image: url('@{img-root}/share-facebook-dark.gif');
     }
 }
