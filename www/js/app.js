@@ -15,6 +15,7 @@ var $slide_browse_btn;
 var $titlecard;
 var $panels;
 var $panel_images;
+var $full_screen_button;
 
 var active_slide = 0;
 
@@ -344,6 +345,7 @@ $(document).ready(function() {
     $slide_list_end = $('#list-nav-end');
     $slide_browse_btn = $('#browse-btn');
     $titlecard = $('#panel0');
+    $full_screen_button = $('#full-screen');
 
     if (!audio_supported) { $audio.hide(); }
 
@@ -394,6 +396,22 @@ $(document).ready(function() {
     $back.on('click', goto_previous_slide);
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
+
+    $full_screen_button.on('click', function(){
+        var element = document.body;
+        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+        console.log(requestMethod);
+
+        if (requestMethod) {
+            requestMethod.call(element);
+        } else if (typeof window.ActiveXObject !== "undefined") {
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    });
 
     $audio_branding.on('click', function() {
         if (audio_supported) {
