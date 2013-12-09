@@ -148,11 +148,15 @@ var load_slideshow_data = function() {
         var id = parseInt($(this).attr('data-id'), 0);
         goto_slide(id);
     });
+    
+    $slide_browse_btn.on('click', function() {
+        goto_slide(end_id);
+    });
 
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
     
-    goto_slide(0);
+    goto_slide(1);
 
     resize_slideshow();
 };

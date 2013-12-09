@@ -150,8 +150,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     position: relative;
     cursor: pointer;
     outline: none;
-    width: 40px; 
     height: @audio-height;
+    line-height: @audio-height;
     border-right: 1px solid @nav-border;
     .user-select(none);
 
@@ -170,7 +170,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
     
     &.back-next {
-        line-height: @audio-height;
         text-align: center;
         float: right;
         border-left: 1px solid @nav-border;
@@ -190,7 +189,26 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         &#back-btn span { padding-left: 5px; }
         &#next-btn span { padding-right: 5px; }
     }
+
+    &#browse-btn { 
+        float: left;
+        font-weight: normal;
+        width: 40px;
+        
+        i { display: inline-block; }
+        span { display: none; }
+
+        @media @screen-medium-above {
+            width: 145px;
+
+            i { display: none; }
+            span { display: inline-block; }
+        }
+
+        &.active { background-color: @nav-button-color; }
+    }
 }
+
 
 // AUDIO PLAYER
 .jp-audio {
@@ -200,8 +218,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     border-right: 1px solid @nav-border;
     .clearfix();
     
-    @media @screen-small-above { width: 271px; }
-    @media @screen-medium-above { width: 483px; }
+    @media @screen-small-above { width: 281px; }
+    @media @screen-medium-above { width: 388px; }
     @media @screen-large-above { width: 600px; }
 }
 .jp-jplayer { 
@@ -237,8 +255,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     display: none;
     
     @media @screen-large-above { width: 493px; }
-    @media @screen-large { width: 376px; }
-    @media @screen-medium { width: 225px; }
+    @media @screen-large { width: 346px; }
+    @media @screen-medium { width: 174px; }
     @media @screen-small-above { display: block; }
 }
 .jp-progress { 
@@ -329,12 +347,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         @media @screen-medium-above { width: 25%; }
         @media @screen-large-above { width: 20%; }
     }
-}
-
-#browse-btn { 
-    float: left;
-    
-    &.active { background-color: @nav-button-color; }
 }
 
 
