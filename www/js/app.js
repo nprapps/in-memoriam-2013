@@ -356,8 +356,8 @@ $(document).ready(function() {
         $player.jPlayer({
             ready: function () {
                 $(this).jPlayer('setMedia', {
-                    oga: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg',
-                    mp3: 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+                    oga: APP_CONFIG.OGG_LINK,
+                    mp3: APP_CONFIG.MP3_LINK
                 }).jPlayer('pause');
             },
             play: function() { // To avoid both jPlayers playing together.

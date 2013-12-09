@@ -88,7 +88,7 @@ SHARE_URL = 'http://%s/%s/' % (PRODUCTION_S3_BUCKETS[0], PROJECT_SLUG)
 TWITTER = {
     'TEXT': PROJECT_NAME,
     'URL': SHARE_URL,
-    # Will be resized to 120x120, can't be larger than 1MB 
+    # Will be resized to 120x120, can't be larger than 1MB
     'IMAGE_URL': ''
 }
 
@@ -149,6 +149,8 @@ def configure_targets(deployment_target):
     global SERVER_BASE_URL
     global DEBUG
     global DEPLOYMENT_TARGET
+    global MP3_LINK
+    global OGG_LINK
 
     if deployment_target == 'production':
         S3_BUCKETS = PRODUCTION_S3_BUCKETS
@@ -156,18 +158,24 @@ def configure_targets(deployment_target):
         SERVERS = PRODUCTION_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         DEBUG = False
+        MP3_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
     elif deployment_target == 'staging':
         S3_BUCKETS = STAGING_S3_BUCKETS
         S3_BASE_URL = 'http://%s/%s' % (S3_BUCKETS[0], PROJECT_SLUG)
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         DEBUG = True
+        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
     else:
-        S3_BUCKETS = [] 
+        S3_BUCKETS = []
         S3_BASE_URL = 'http://127.0.0.1:8000'
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
         DEBUG = True
+        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
 
     DEPLOYMENT_TARGET = deployment_target
 
