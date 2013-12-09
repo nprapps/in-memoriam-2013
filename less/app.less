@@ -501,6 +501,19 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 }
 
 // TITLE AND CLOSING SCREENS
+#panel0 .panel-inner {
+    @media @screen-small-above {
+        .clearfix();
+        background: @shade-bg;
+        border: 2px solid rgba(60,60,60,.6);
+        padding: 50px 30px 40px 30px;
+        position: absolute;
+        top: 0;
+        right: @audio-height;
+        bottom: @audio-height;
+        left: @audio-height;
+    }
+}
 #title-button {
     display: block;
     color: @text-gray;
@@ -510,12 +523,12 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     margin: 20px;
 
     @media @screen-small-above {
-        width: 60%;
-        max-width: 725px;
-        margin: 60px auto 0 auto;
-        background: @shade-bg;
-        border: 2px solid rgba(60,60,60,.6);
-        padding: 50px 30px 40px 30px;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        .translate(-50%,-50%);
+        // via: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/
     }
 
     h5 {
