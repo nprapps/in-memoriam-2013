@@ -156,7 +156,7 @@ var load_slideshow_data = function() {
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
     
-    goto_slide(1);
+    goto_slide(0);
 
     resize_slideshow();
 };
@@ -180,15 +180,6 @@ var goto_slide = function(id) {
     } else {
         play_slide(id);
     }
-    
-    $b.removeClass().addClass('slide' + id);
-    
-    if(id != 0 && !$audio_nav.hasClass('fadeIn')) {
-        $audio_nav.addClass('animated fadeIn');
-    } else if (id == 0) {
-        $audio_nav.removeClass('animated fadeIn');
-    }
-
     return false;
 };
 
@@ -226,6 +217,15 @@ var scroll_to_slide = function(id) {
         }
     });
     active_slide = id;
+
+    // show/hide nav where appropriate
+    $b.removeClass().addClass('slide' + id);
+    
+    if(id != 0 && !$audio_nav.hasClass('fadeIn')) {
+        $audio_nav.addClass('animated fadeIn');
+    } else if (id == 0) {
+        $audio_nav.removeClass('animated fadeIn');
+    }
 
     return false;
 };
