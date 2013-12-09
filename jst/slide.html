@@ -6,13 +6,14 @@
         <p class="dates"><%= artist.date_of_birth %> &mdash; <%= artist.date_of_death %></p>
         <% } %>
         <p class="desc"><strong><%= artist.also_known_as %></strong> <%= artist.description %></p>
-
+        
+        <h3>Read / Listen</h3>
         <% if (artist.obit_URL.length > 2) { %>
-        <p class="npr-obit">&rsaquo; <a href="<%= artist.obit_URL %>" target="_blank">NPR Remembrance: Audio, interviews, photos</a></p>
+        <p class="npr-obit"><i class="fa fa-angle-right"></i> <a href="<%= artist.obit_URL %>" target="_blank">NPR Remembrance: Audio, interviews, photos</a></p>
         <% } %>
 
         <% if (artist.artist_page_seamus_id.length > 2) { %>
-        <p class="npr-artist">&rsaquo; <a href="<%= artist.artist_page_seamus_id %>" target="_blank">NPR Artist Page</a></p>
+        <p class="npr-artist"><i class="fa fa-angle-right"></i> <a href="<%= artist.artist_page_seamus_id %>" target="_blank">NPR Artist Page</a></p>
         <% } %>
 
         <% if (artist.song_name.length > 2) { %>
