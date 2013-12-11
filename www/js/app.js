@@ -20,9 +20,9 @@ var $full_screen_button;
 var active_slide = 0;
 
 var audio_supported = false;
-//if (Modernizr.audio.mp3 == 'probably' || Modernizr.audio.ogg  == 'probably') {
+if (Modernizr.audio) {
     audio_supported = true;
-//}
+}
 
 var end_id;
 var end_cue;
