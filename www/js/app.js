@@ -156,7 +156,7 @@ var load_slideshow_data = function() {
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
 
-    goto_slide(1);
+    goto_slide(0);
 
     resize_slideshow();
 };
