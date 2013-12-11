@@ -218,13 +218,12 @@ var play_slide = function(id) {
     /*
      * Play a slide at the correct audio cue.
      */
+
     if (audio_supported) {
         if (PEOPLE[id-1] !== undefined) {
             $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
-            _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
         } else if (id == end_id) {
             $player.jPlayer('play', end_cue);
-            _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
         } else if (id === 0) {
             $player.jPlayer('pause', 0);
         }
@@ -237,6 +236,20 @@ var scroll_to_slide = function(id) {
     /*
      * Scroll horizontally to the correct slide position.
      */
+
+    // play_slide() doesn't get called during the long-playing of the file.
+    // scroll_to_slide() does get called.
+    // Track start/finish of a slide.
+
+    // Don't say we started the zero-th slide.
+    if (parseInt(id, 0) > 0) {
+        _gaq.push(['_trackEvent', 'Audio', 'Started Artist', APP_CONFIG.PROJECT_NAME, id]);
+    }
+
+    // Don't say we completed the zero-th slide.
+    if (parseInt((id-1), 0) > 0) {
+        _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
+    }
 
     $.smoothScroll({
         direction: 'left',
