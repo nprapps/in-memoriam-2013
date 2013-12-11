@@ -57,8 +57,6 @@ var load_slideshow_data = function() {
     /*
      * Load slideshow data from external JSON
      */
-    console.log('load_slideshow_data()');
-
     var slide_html = '';
     var audio_html = '';
     var browse_html = '';
@@ -167,7 +165,6 @@ var goto_slide = function(id) {
      * Determine whether to shift to the next slide
      * with audio, or without audio.
      */
-    console.log('goto_slide(' + id + ')');
     active_slide = Number(id);
     if (!audio_supported || $player.data().jPlayer.status.paused) {
         scroll_to_slide(id);
@@ -191,10 +188,11 @@ var play_slide = function(id) {
      */
     if (audio_supported) {
         if (PEOPLE[id-1] !== undefined) {
-            console.log('play cuepoint: ' + PEOPLE[id-1]['start_time_in_mix']);
             $player.jPlayer('play', PEOPLE[id-1]['start_time_in_mix']);
+            _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
         } else if (id == end_id) {
             $player.jPlayer('play', end_cue);
+            _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
         } else if (id === 0) {
             $player.jPlayer('pause', 0);
         }
@@ -207,7 +205,6 @@ var scroll_to_slide = function(id) {
     /*
      * Scroll horizontally to the correct slide position.
      */
-    console.log('scroll_to_slide(' + id + ')');
 
     $.smoothScroll({
         direction: 'left',
@@ -222,10 +219,10 @@ var scroll_to_slide = function(id) {
 
     // show/hide nav where appropriate
     $b.removeClass().addClass('slide' + id);
-    
-    if(id != 0 && !$audio_nav.hasClass('fadeIn')) {
+
+    if(id !== 0 && !$audio_nav.hasClass('fadeIn')) {
         $audio_nav.addClass('animated fadeIn');
-    } else if (id == 0) {
+    } else if (id === 0) {
         $audio_nav.removeClass('animated fadeIn');
     }
 
@@ -266,11 +263,23 @@ var handle_keypress = function(ev) {
     return true;
 };
 
+var handle_full_screen = function(element) {
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) {
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") {
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+};
+
 var resize_slideshow = function() {
     /*
      * Resize slideshow panels based on screen width
      */
-    console.log('resize_slideshow()');
     var new_width = $content.width();
     var new_height = $(window).height() - $audio.height();
     var height_43 = Math.ceil(($content.width() * 3) / 4);
@@ -348,6 +357,7 @@ $(document).ready(function() {
     $('#title-button').on('click', function() {
         if (audio_supported) {
             $player.jPlayer('play');
+            _gaq.push(['_trackEvent', 'Audio', 'Started The Audio', APP_CONFIG.PROJECT_NAME, 0]);
         } else {
             goto_slide(1);
         }
@@ -359,21 +369,7 @@ $(document).ready(function() {
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
-    $full_screen_button.on('click', function(){
-        var element = document.body;
-        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-        console.log(requestMethod);
-
-        if (requestMethod) {
-            requestMethod.call(element);
-        } else if (typeof window.ActiveXObject !== "undefined") {
-            var wscript = new ActiveXObject("WScript.Shell");
-            if (wscript !== null) {
-                wscript.SendKeys("{F11}");
-            }
-        }
-    });
+    $full_screen_button.on('click', handle_full_screen(document.body));
 
     $audio_branding.on('click', function() {
         if (audio_supported) {
