@@ -276,17 +276,10 @@ var handle_keypress = function(ev) {
     return true;
 };
 
-var handle_full_screen = function(element) {
+var handle_full_screen = function() {
+    var element = document.body;
     var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-    if (requestMethod) {
-        requestMethod.call(element);
-    } else if (typeof window.ActiveXObject !== "undefined") {
-        var wscript = new ActiveXObject("WScript.Shell");
-        if (wscript !== null) {
-            wscript.SendKeys("{F11}");
-        }
-    }
+    requestMethod.call(element);
 };
 
 var resize_slideshow = function() {
@@ -382,7 +375,12 @@ $(document).ready(function() {
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
-    $full_screen_button.on('click', handle_full_screen(document.body));
+    // Don't show a full-screen button in IE.
+    if (typeof window.ActiveXObject !== "undefined") {
+        $full_screen_button.hide();
+    } else {
+        $full_screen_button.on('click', handle_full_screen);
+    }
 
     $audio_branding.on('click', function() {
         if (audio_supported) {
