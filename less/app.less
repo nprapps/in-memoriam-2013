@@ -140,6 +140,43 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     &:hover, &.active { background-color: @nav-button-hover; }
     &:hover span, &.active span { background-color: @text-gray; }
 }
+#tooltip {
+    background: @slide-bg-color;
+    color: #fff;
+    display: none;
+    position: absolute;
+    width: 120px;
+    margin-top: 10px;
+    
+    &:before {
+        content: '';
+        width: 0; 
+        height: 0; 
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        margin-left: -10px;
+        border: 10px solid transparent;
+        border-bottom-color: @slide-bg-color;
+        // technique via: http://www.yuiblog.com/blog/2010/11/22/css-quick-tip-css-arrows-and-shapes-without-markup/
+    }
+    
+    &.animated { .animation-duration(.3s); }
+    
+    img { 
+        display: block;
+        width: 120px;
+        height: 89px;
+    }
+    h4 {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: center;
+        padding: 6px;
+        color: @text-gray;
+    }
+}
 .nav-btn  {
     color: @nav-text-color;
     font-size: 12px;
