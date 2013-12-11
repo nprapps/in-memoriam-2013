@@ -108,7 +108,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 #audio {
     float: left;
     height: @audio-height;
-    border-left: 1px solid @nav-border;
 }
 #slide-nav {
     margin: 0 1%;
@@ -240,6 +239,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         }
         
         &#browse-btn {
+            @media @screen-small-above {
+                border-right: none;
+            }
             @media @screen-medium-above {
                 width: 107px;
 
@@ -270,12 +272,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 .jp-audio {
     color: #fff;
     width: auto;
-    border-right: 1px solid @nav-border;
     .clearfix();
-
-    @media @screen-small-above { width: 315px; }
-    @media @screen-medium-above { width: 263px; }
-    @media @screen-large-above { width: 484px; }
 }
 .jp-jplayer {
     width: 0px;
@@ -309,9 +306,6 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     background-color: @nav-button-color;
     display: none;
 
-    @media @screen-large-above { width: 377px; }
-    @media @screen-large { width: 156px; }
-    @media @screen-medium { width: 208px; }
     @media @screen-small-above { display: block; }
 }
 .jp-progress {
@@ -341,6 +335,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     color: #8b9094;
     text-align: center;
     border-left: none;
+    border-right: 1px solid @nav-border;
     font-size: 11px;
 
     @media @screen-small-above { border-left: 1px solid @nav-border; }

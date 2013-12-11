@@ -160,7 +160,7 @@ var load_slideshow_data = function() {
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
 
-    goto_slide(0);
+    goto_slide(1);
 
     resize_slideshow();
 };
@@ -343,9 +343,41 @@ var resize_slideshow = function() {
     } else {
         $panel_images.height('100%');
     }
+    
+    // resize header elements
+    resize_header();
 
     // reset slide position
     scroll_to_slide(active_slide);
+};
+
+var resize_header = function() {
+    var audio_container = $audio.find('.jp-audio');
+    var progress_container = $audio.find('.jp-progress-container');
+    
+    if (progress_container.css('display') == 'block') {
+        var nav_width = $audio_nav.width();
+        var branding_width = $audio_branding.outerWidth();
+        var audio_width = audio_container.width();
+        var controls_width = $audio.find('.jp-controls').outerWidth();
+        var progress_width = progress_container.outerWidth(); // <-- other one
+        var time_width = $audio.find('.jp-current-time').outerWidth();
+        var fullscreen_width = $full_screen_button.outerWidth();
+        var browse_width = $slide_browse_btn.outerWidth();
+        var back_width = $back.outerWidth();
+        var next_width = $next.outerWidth();
+    
+        var new_audio_container_width = nav_width - branding_width - fullscreen_width - browse_width - back_width - next_width;
+        var new_progress_container_width = new_audio_container_width - controls_width - time_width;
+    
+        console.log(nav_width, new_audio_container_width);
+        console.log(nav_width, branding_width, fullscreen_width, browse_width, back_width, next_width);
+    
+        audio_container.width(new_audio_container_width + 'px');
+        progress_container.width(new_progress_container_width + 'px');
+    } else {
+        audio_container.width('auto');
+    }
 };
 
 $(document).ready(function() {
