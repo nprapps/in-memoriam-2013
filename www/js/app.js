@@ -363,6 +363,9 @@ var resize_header = function() {
         var progress_width = progress_container.outerWidth(); // <-- other one
         var time_width = $audio.find('.jp-current-time').outerWidth();
         var fullscreen_width = $full_screen_button.outerWidth();
+        if ($full_screen_button.css('display') == 'none') {
+            fullscreen_width = 0;
+        }
         var browse_width = $slide_browse_btn.outerWidth();
         var back_width = $back.outerWidth();
         var next_width = $next.outerWidth();
