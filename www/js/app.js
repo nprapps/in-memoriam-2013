@@ -13,22 +13,22 @@ var $player;
 var $slide_list_end;
 var $slide_browse_btn;
 var $titlecard;
+var $tooltip;
 var $panels;
 var $panel_images;
 var $full_screen_button;
-
-var active_slide = 0;
 
 var audio_supported = false;
 if (Modernizr.audio) {
     audio_supported = true;
 }
-
+var active_slide = 0;
 var end_id;
 var end_cue;
 var mobile_breakpoint = 767;
 var num_slides;
 var pop;
+
 
 var ap_date = function(mmnt) {
     /*
@@ -134,8 +134,9 @@ var load_slideshow_data = function() {
 
     $slide_nav.find('.slide-nav-item').hover(function() {
         var id = parseInt($(this).attr('data-id'), 0);
+        show_tooltip(id);
     }, function() {
-        var id = parseInt($(this).attr('data-id'), 0);
+        hide_tooltip();
     });
 
     $slide_nav.find('.slide-nav-item').on('click', function() {
@@ -155,10 +156,41 @@ var load_slideshow_data = function() {
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
 
-    goto_slide(0);
+    goto_slide(1);
 
     resize_slideshow();
 };
+
+var show_tooltip = function(id) {
+    var data = PEOPLE[(id - 1)];
+    var dot_position = $('#s' + id).offset();
+    var dot_height = $('#s' + id).height();
+    var dot_width = $('#s' + id).width();
+    var photo_filename;
+    var tooltip_text = '';
+    var tooltip_position_x;
+    var tooltip_width = $tooltip.width();
+    
+    if (data != undefined) {
+        photo_filename = data.photo_filename.replace('.jpg', '_120.jpg');
+        tooltip_text += '<h4>' + data.first_name + ' ' + data.last_name + '</h4>';
+        tooltip_text += '<img src="img/people/' + photo_filename + '" alt="' + data.first_name + ' ' + data.last_name + '" />';
+    } else {
+        // end slide
+        tooltip_text += '<h4>All Artists:<br />Index &amp; Credits</h4>';
+    }
+    
+    tooltip_position_x = dot_position.left - ((tooltip_width - dot_width) / 2);
+
+    $tooltip.empty().append(tooltip_text);
+    $tooltip.css('top', dot_position.top + dot_height);
+    $tooltip.css('left', tooltip_position_x);
+    $tooltip.show().addClass('animated fadeIn');
+}
+
+var hide_tooltip = function() {
+    $tooltip.removeClass('animated fadeIn').hide();
+}
 
 var goto_slide = function(id) {
     /*
@@ -324,6 +356,7 @@ $(document).ready(function() {
     $slide_list_end = $('#list-nav-end');
     $slide_browse_btn = $('#browse-btn');
     $titlecard = $('#panel0');
+    $tooltip = $('#tooltip');
     $full_screen_button = $('#full-screen');
 
     if (!audio_supported) { $audio.hide(); }
