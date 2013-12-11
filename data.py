@@ -56,9 +56,6 @@ class Person(object):
         for key, value in kwargs.items():
             value = unicode(value.decode('utf-8')).strip()
 
-            if key == 'start_time_in_mix':
-                value = int(value)
-
             setattr(self, key, value)
 
         self.slugify()

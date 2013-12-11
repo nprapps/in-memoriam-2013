@@ -65,6 +65,10 @@ var load_slideshow_data = function() {
     _.each(PEOPLE, function(person, index, list){
         person['id'] = index + 1;
 
+        // Format in data is 'M:SS:MS'
+        // Needs to be 'M:SS'
+        person.start_time_in_mix = Popcorn.util.toSeconds(person.start_time_in_mix.substring(0, 4));
+
         person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
 
         if ($content.width() <= 480) {
