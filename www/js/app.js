@@ -159,6 +159,9 @@ var load_slideshow_data = function() {
 
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
+    
+    $b.removeClass('loading');
+    $('#title').addClass('animated fadeIn');
 
     goto_slide(0);
 

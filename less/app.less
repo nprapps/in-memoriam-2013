@@ -40,6 +40,8 @@ body {
     background-color: @slide-bg-color;
     background: @slide-bg-color url('@{img-root}/black_thread.png') repeat;
     // Background pattern via Subtle Patterns: http://subtlepatterns.com/black-thread/
+    
+    &.loading #content { display: none; }
 }
 body, h1, h2, h3, h4, h5, h6, p, li {
     font-family: "Gotham SSm", helvetica, arial, sans-serif;
@@ -252,7 +254,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
         &#full-screen {
             .touch & { display: none; }
-
+            
             @media @screen-medium-above {
                 width: 130px;
 
@@ -564,6 +566,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     text-shadow: @shadow;
     text-align: center;
     margin: 20px;
+    outline: 0;
 
     @media @screen-small-above {
         margin: 0;
