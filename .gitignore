@@ -44,3 +44,4 @@ www/live-data/*.json
 data/*.csv
 unversioned/*.jpg
 www/img/people/*.jpg
+client_secrets.json
