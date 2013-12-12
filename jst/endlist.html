@@ -1,7 +1,11 @@
 <div class="browse<%= artist.id %> browse-artist">
     <% if (artist.first_name) { %>
     <a href="javascript:;" class="slidelink" data-id="<%= artist.id %>">
+        <% if (artist.alt_photo_filename.length > 2) { %>
+        <img src="img/<%= artist.alt_photo_filename %>" />
+        <% } else { %>
         <img src="img/people/<%= artist.photo_filename.replace('.jpg', '') %>_120.jpg" />
+        <% } %>
     </a>
     <h2>
         <a href="javascript:;" class="slidelink" data-id="<%= artist.id %>">
