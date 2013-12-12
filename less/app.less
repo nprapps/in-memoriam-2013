@@ -353,53 +353,58 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         font-weight: bold;
         font-size: 13px;
         line-height: 1.4;
-        margin: 0 0 2px 70px;
-        color:#fff;
+        margin: 0;
+        color: #fff;
     }
 
     p {
         font-size: 12px;
         line-height: 1.4;
-        margin: 0 0 0 70px;
+        margin: 0;
+        display: none;
     }
 
     img {
-        float: left;
-        width: 60px;
-        height: 44px;
-        border: 1px solid @nav-border;
-        margin-right: 0;
+        max-width: 100%;
+//        width: 100%;
+        height: auto;
+//        width: 120px;
+//        height: 90px;
+        margin-bottom: 11px;
     }
+
     a {
         padding: 0;
         display: inline;
         border: none;
         color: @nav-text-color;
 
-        &:hover,
-        &:active {
-            color: @nav-text-hover;
-            text-decoration: none;
-            background-color: none;
+        &.slidelink {
+            color: #fff;
 
-            img { border-color: @text-gray; }
+            &:hover,
+            &:active {
+                color: @nav-text-hover;
+            }
         }
     }
 
     .browse-artist {
         overflow: hidden;
-        border-top: 1px solid @nav-button-color;
-        padding: 10px 0;
+        padding: 11px 0;
         .clearfix();
 
-        @media @screen-tiny-above {
-            width: 50%;
-            float: left;
-            height: 60px;
-        }
-        @media @screen-small-above { width: 33%; }
-        @media @screen-medium-above { width: 25%; }
-        @media @screen-large-above { width: 20%; }
+        float: left;
+        clear: right;
+        text-align: center;
+        width: 50%;
+
+        @media @screen-tiny-above { width: 25%; }
+        @media @screen-small-above { width: 20%; }
+        @media @screen-medium-above { width: 16%; }
+        @media @screen-large-above { width: 14%; }
+        
+        &:hover { background-color: @nav-button-hover; }
     }
 }
 
@@ -625,15 +630,24 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     overflow-x: hidden;
     overflow-y: auto;
 
-    .panel-wrap {
-        padding: 20px;
-    }
+    .panel-wrap { padding: 20px; }
+
     h3 {
         font-size: 18px;
+        margin-bottom: 15px;
         font-weight: bold;
         text-transform: uppercase;
     }
-    p { color: @text-gray; }
+
+    p { 
+        color: @text-gray;
+
+        &.footer-info {
+            font-size: 12px;
+            margin-top: 44px;
+        }
+    }
+
 }
 
 #share-buttons {
