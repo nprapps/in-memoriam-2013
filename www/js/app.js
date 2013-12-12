@@ -174,8 +174,8 @@ var show_tooltip = function(id) {
     var tooltip_text = '';
     var tooltip_position_x;
     var tooltip_width = $tooltip.width();
-    
-    if (data != undefined) {
+
+    if (data !== undefined) {
         photo_filename = data.photo_filename.replace('.jpg', '_120.jpg');
         tooltip_text += '<h4>' + data.first_name + ' ' + data.last_name + '</h4>';
         tooltip_text += '<img src="img/people/' + photo_filename + '" alt="' + data.first_name + ' ' + data.last_name + '" />';
@@ -183,18 +183,18 @@ var show_tooltip = function(id) {
         // end slide
         tooltip_text += '<h4>All Artists:<br />Index &amp; Credits</h4>';
     }
-    
+
     tooltip_position_x = dot_position.left - ((tooltip_width - dot_width) / 2);
 
     $tooltip.empty().append(tooltip_text);
     $tooltip.css('top', dot_position.top + dot_height);
     $tooltip.css('left', tooltip_position_x);
     $tooltip.show().addClass('animated fadeIn');
-}
+};
 
 var hide_tooltip = function() {
     $tooltip.removeClass('animated fadeIn').hide();
-}
+};
 
 var goto_slide = function(id) {
     /*
@@ -343,7 +343,7 @@ var resize_slideshow = function() {
     } else {
         $panel_images.height('100%');
     }
-    
+
     // resize header elements
     resize_header();
 
@@ -354,7 +354,7 @@ var resize_slideshow = function() {
 var resize_header = function() {
     var audio_container = $audio.find('.jp-audio');
     var progress_container = $audio.find('.jp-progress-container');
-    
+
     if (progress_container.css('display') == 'block') {
         var nav_width = $audio_nav.width();
         var branding_width = $audio_branding.outerWidth();
@@ -369,13 +369,13 @@ var resize_header = function() {
         var browse_width = $slide_browse_btn.outerWidth();
         var back_width = $back.outerWidth();
         var next_width = $next.outerWidth();
-    
+
         var new_audio_container_width = nav_width - branding_width - fullscreen_width - browse_width - back_width - next_width;
         var new_progress_container_width = new_audio_container_width - controls_width - time_width;
-    
+
         console.log(nav_width, new_audio_container_width);
         console.log(nav_width, branding_width, fullscreen_width, browse_width, back_width, next_width);
-    
+
         audio_container.width(new_audio_container_width + 'px');
         progress_container.width(new_progress_container_width + 'px');
     } else {

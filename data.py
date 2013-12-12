@@ -113,9 +113,10 @@ def load_photos(people):
 
     for person in people:
         r = requests.get('http://apps.npr.org/in-memoriam-2013/img/people/originals/%s' % person['photo_filename'])
-        with open('unversioned/%s' % person['photo_filename'], 'wb') as writefile:
-            writefile.write(r.content)
-            print 'Downloading photo: %s' % person['photo_filename'].replace('_', ' ').replace('.jpg', '')
+        if r.status_code == 200:
+            with open('unversioned/%s' % person['photo_filename'], 'wb') as writefile:
+                writefile.write(r.content)
+                print 'Downloading photo: %s' % person['photo_filename'].replace('_', ' ').replace('.jpg', '')
 
 if __name__ == "__main__":
     init()
