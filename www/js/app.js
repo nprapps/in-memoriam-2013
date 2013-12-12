@@ -179,9 +179,13 @@ var show_tooltip = function(id) {
     var tooltip_width = $tooltip.width();
 
     if (data !== undefined) {
-        photo_filename = data.photo_filename.replace('.jpg', '_120.jpg');
+        if (data.alt_photo_filename) {
+            photo_filename = 'img/' + data.alt_photo_filename;
+        } else {
+            photo_filename = 'img/people/' + data.photo_filename.replace('.jpg', '_120.jpg');
+        }
         tooltip_text += '<h4>' + data.first_name + ' ' + data.last_name + '</h4>';
-        tooltip_text += '<img src="img/people/' + photo_filename + '" alt="' + data.first_name + ' ' + data.last_name + '" />';
+        tooltip_text += '<img src="' + photo_filename + '" alt="' + data.first_name + ' ' + data.last_name + '" />';
     } else {
         // end slide
         tooltip_text += '<h4>All Artists:<br />Index &amp; Credits</h4>';
