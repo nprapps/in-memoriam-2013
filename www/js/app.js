@@ -163,7 +163,7 @@ var load_slideshow_data = function() {
     $b.removeClass('loading');
     $('#title').addClass('animated fadeIn');
 
-    goto_slide(26);
+    goto_slide(0);
 
     resize_slideshow();
 };
