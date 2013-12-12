@@ -376,9 +376,6 @@ var resize_header = function() {
         var new_audio_container_width = nav_width - branding_width - fullscreen_width - browse_width - back_width - next_width;
         var new_progress_container_width = new_audio_container_width - controls_width - time_width;
 
-        console.log(nav_width, new_audio_container_width);
-        console.log(nav_width, branding_width, fullscreen_width, browse_width, back_width, next_width);
-
         audio_container.width(new_audio_container_width + 'px');
         progress_container.width(new_progress_container_width + 'px');
     } else {
