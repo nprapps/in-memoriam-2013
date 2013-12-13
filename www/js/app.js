@@ -454,7 +454,6 @@ $(document).ready(function() {
 
     $back.on('click', goto_previous_slide);
     $back_big.on('click', goto_previous_slide);
-    console.log($back_big);
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
