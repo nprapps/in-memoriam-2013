@@ -45,3 +45,4 @@ data/*.csv
 unversioned/*.jpg
 www/img/people/*.jpg
 client_secrets.json
+analytics.dat
