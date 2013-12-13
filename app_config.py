@@ -89,7 +89,8 @@ TWITTER = {
     'TEXT': PROJECT_NAME,
     'URL': SHARE_URL,
     # Will be resized to 120x120, can't be larger than 1MB
-    'IMAGE_URL': ''
+    'IMAGE_URL': '',
+    'HASHTAG': 'nprmusic2013'
 }
 
 FACEBOOK = {

@@ -18,6 +18,7 @@ FIELDNAMES = [
     'description',
     'obit_URL',
     'photo_filename',
+    'alt_photo_filename',
     'photo_credit',
     'photo_caption',
     'start_time_in_mix',

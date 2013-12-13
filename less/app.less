@@ -253,7 +253,10 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         }
 
         &#full-screen {
-            .touch & { display: none; }
+            .touch &,
+            .fullscreen & { 
+                display: none;
+            }
             
             @media @screen-medium-above {
                 width: 130px;
@@ -268,6 +271,13 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         &.active { background-color: @nav-button-color; }
     }
 }
+
+// fullscreen styles. 
+// note: only worked if I formatted it this way, 
+// rather than condensed LESS format grouped w/ other #full-screen styles
+:-webkit-full-screen #full-screen { display: none }
+:-moz-full-screen #full-screen { display: none }
+:fullscreen #full-screen { display: none }
 
 
 // AUDIO PLAYER
@@ -355,13 +365,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         line-height: 1.4;
         margin: 0;
         color: #fff;
-    }
-
-    p {
-        font-size: 12px;
-        line-height: 1.4;
-        margin: 0;
-        display: none;
+        height: 25px;
     }
 
     img {
