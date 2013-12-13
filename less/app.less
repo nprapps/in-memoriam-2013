@@ -715,3 +715,43 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         background-image: url('@{img-root}/share-facebook-dark.gif');
     }
 }
+
+
+// Big nav buttons
+.btn-big {
+    width: 25%;
+    height: 600px;
+    position: absolute;
+    top: @audio-height;
+    opacity: 0;
+    .user-select(none);
+    
+    p {
+        margin: 0;
+        font-size: 72px;
+        padding: 0 22px;
+        text-transform: uppercase;
+    }
+    
+    &#btn-back-big {
+        text-align: left;
+        left: 0;
+    }
+
+    &#btn-next-big {
+        text-align: right;
+        right: 0;
+    }
+    
+    &:hover {
+        cursor: pointer;
+        background: rgba(0,0,0,.3);
+        .animation-fill-mode(both);
+        .animation-duration(.5s);
+        .animation-name(fadeIn);
+        
+        p { 
+            color: #fff;
+        }
+    }
+}

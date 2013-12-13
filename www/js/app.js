@@ -5,6 +5,8 @@ var $slide_wrap;
 var $slide_nav;
 var $next;
 var $back;
+var $next_big;
+var $back_big;
 var $audio_nav;
 var $audio_branding;
 var $audio;
@@ -397,6 +399,8 @@ $(document).ready(function() {
     $slide_nav = $('#slide-nav');
     $next = $('#next-btn');
     $back = $('#back-btn');
+    $next_big = $('#btn-next-big');
+    $back_big = $('#btn-back-big');
     $audio_nav = $('#audio-navbar');
     $audio_branding = $audio_nav.find('.branding');
     $audio = $('#audio');
@@ -446,8 +450,11 @@ $(document).ready(function() {
     });
 
     $next.on('click', goto_next_slide);
+    $next_big.on('click', goto_next_slide);
 
     $back.on('click', goto_previous_slide);
+    $back_big.on('click', goto_previous_slide);
+    console.log($back_big);
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
