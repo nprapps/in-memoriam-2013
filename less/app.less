@@ -281,7 +281,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
 }
 
-// fullscreen styles. 
+// FULLSCREEN STYLES 
 // note: only worked if I formatted it this way, 
 // rather than condensed LESS format grouped w/ other #full-screen styles
 :-webkit-full-screen #full-screen { display: none }
@@ -509,7 +509,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         letter-spacing: -0.05em;
         font-size: 30px;
 
-        @media @screen-medium-above { font-size: 48px; }
+        @media @screen-medium-above { font-size: 42px; }
         @media @screen-medium { font-size: 34px; }
         @media @screen-small { font-size: 32px; }
     }
@@ -527,10 +527,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         line-height: 1.4;
         font-size: 14px;
 
-        @media @screen-medium-above { 
-            font-size: 16px;
-            line-height: 1.5;
-        }
+        @media @screen-medium-above { font-size: 16px; }
 
         &.dates { font-style: italic; }
         &.desc { margin-bottom: 20px; }
@@ -626,15 +623,18 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         margin: 0 0 22px 0;
         font-size: 42px;
 
-        @media @screen-small-above { font-size: 64px; }
-        @media @screen-medium-above { font-size: 72px; }
+        @media @screen-small-above { font-size: 56px; }
+        @media @screen-medium-above { font-size: 64px; }
+        @media @screen-large-above { font-size: 70px; }
     }
     h2 {
         line-height: 1.5;
         margin: 0 0 33px 0;
         font-size: 18px;
 
-        @media @screen-small-above { font-size: 24px; }
+        @media @screen-small-above { font-size: 20px; }
+        @media @screen-medium-above { font-size: 22px; }
+        @media @screen-large-above { font-size: 24px; }
     }
     h3 {
         display: inline-block;
