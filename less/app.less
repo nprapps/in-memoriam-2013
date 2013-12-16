@@ -21,10 +21,10 @@
 @screen-large-only: ~"screen and (min-width: 980px) and (max-width: 1200px)";
 @screen-large: ~"screen and (max-width: 1200px)";
 @screen-medium-above: ~"screen and (min-width: 980px)";
-@screen-medium-only: ~"screen and (min-width: 768px) and (max-width: 979px)";
+@screen-medium-only: ~"screen and (min-width: 769px) and (max-width: 979px)";
 @screen-medium: ~"screen and (max-width: 979px)";
-@screen-small-above: ~"screen and (min-width: 768px)";
-@screen-small-only: ~"screen and (min-width: 481px) and (max-width: 767px)";
+@screen-small-above: ~"screen and (min-width: 769px)";
+@screen-small-only: ~"screen and (min-width: 481px) and (max-width: 768px)";
 @screen-small: ~"screen and (max-width: 767px)";
 @screen-tiny-above: ~"screen and (min-width: 481px)";
 @screen-tiny: ~"screen and (max-width: 480px)";
@@ -64,6 +64,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 @-moz-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
 @-o-keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
 @keyframes fadeOut {0% { opacity: 1; }100% { opacity: 0; }}
+
 
 // AUDIO NAV
 #audio-navbar {
@@ -216,6 +217,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         font-weight: bold;
         white-space: nowrap;
         width: 40px;
+        background-color: @nav-button-color;
 
         @media @screen-medium-above { width: 77px; }
 
@@ -227,6 +229,13 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         }
         &#back-btn span { padding-left: 5px; }
         &#next-btn span { padding-right: 5px; }
+        
+        &#next-btn { border-left-color: lighten(@nav-border, 5%); }
+        
+        &:hover { 
+            color: #fff;
+            background-color: @nav-button-hover;
+        }
     }
     
     &.secondary-btn {
@@ -272,7 +281,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     }
 }
 
-// fullscreen styles. 
+// FULLSCREEN STYLES 
 // note: only worked if I formatted it this way, 
 // rather than condensed LESS format grouped w/ other #full-screen styles
 :-webkit-full-screen #full-screen { display: none }
@@ -308,7 +317,11 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         display: block;
 
         &.jp-play,
-        &.jp-pause { background-color: @nav-button-color; }
+        &.jp-pause { 
+            background-color: @nav-button-color;
+            
+            &:hover { background-color: @nav-button-hover; }
+        }
     }
 }
 .jp-progress-container {
@@ -496,7 +509,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         letter-spacing: -0.05em;
         font-size: 30px;
 
-        @media @screen-medium-above { font-size: 48px; }
+        @media @screen-medium-above { font-size: 42px; }
         @media @screen-medium { font-size: 34px; }
         @media @screen-small { font-size: 32px; }
     }
@@ -514,10 +527,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         line-height: 1.4;
         font-size: 14px;
 
-        @media @screen-medium-above { 
-            font-size: 16px;
-            line-height: 1.5;
-        }
+        @media @screen-medium-above { font-size: 16px; }
 
         &.dates { font-style: italic; }
         &.desc { margin-bottom: 20px; }
@@ -569,7 +579,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
 // TITLE AND CLOSING SCREENS
 #panel0 .panel-inner {
-    @media @screen-small-above {
+    @media @screen-tiny-above {
         .clearfix();
         background: @shade-bg;
         border: 2px solid rgba(60,60,60,.6);
@@ -577,8 +587,10 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         position: absolute;
         top: 0;
         right: @audio-height;
-        bottom: @audio-height;
         left: @audio-height;
+    }
+    @media @screen-small-above {
+        bottom: @audio-height;
     }
 }
 #title-button {
@@ -587,8 +599,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     text-decoration: none;
     text-shadow: @shadow;
     text-align: center;
-    margin: 20px;
     outline: 0;
+    margin: 0 20px 20px 20px;
 
     @media @screen-small-above {
         margin: 0;
@@ -611,17 +623,22 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         text-transform: uppercase;
         color: #fff;
         margin: 0 0 22px 0;
-        font-size: 42px;
+        font-size: 36px;
 
-        @media @screen-small-above { font-size: 64px; }
-        @media @screen-medium-above { font-size: 72px; }
+        @media @screen-tiny-above { font-size: 64px; }
+        @media @screen-small-above { font-size: 56px; }
+        @media @screen-medium-above { font-size: 64px; }
+        @media @screen-large-above { font-size: 70px; }
     }
     h2 {
         line-height: 1.5;
         margin: 0 0 33px 0;
-        font-size: 18px;
+        font-size: 14px;
 
-        @media @screen-small-above { font-size: 24px; }
+        @media @screen-tiny-above { font-size: 20px; }
+        @media @screen-small-above { font-size: 20px; }
+        @media @screen-medium-above { font-size: 22px; }
+        @media @screen-large-above { font-size: 24px; }
     }
     h3 {
         display: inline-block;
