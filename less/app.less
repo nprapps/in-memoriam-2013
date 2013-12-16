@@ -21,10 +21,10 @@
 @screen-large-only: ~"screen and (min-width: 980px) and (max-width: 1200px)";
 @screen-large: ~"screen and (max-width: 1200px)";
 @screen-medium-above: ~"screen and (min-width: 980px)";
-@screen-medium-only: ~"screen and (min-width: 768px) and (max-width: 979px)";
+@screen-medium-only: ~"screen and (min-width: 769px) and (max-width: 979px)";
 @screen-medium: ~"screen and (max-width: 979px)";
-@screen-small-above: ~"screen and (min-width: 768px)";
-@screen-small-only: ~"screen and (min-width: 481px) and (max-width: 767px)";
+@screen-small-above: ~"screen and (min-width: 769px)";
+@screen-small-only: ~"screen and (min-width: 481px) and (max-width: 768px)";
 @screen-small: ~"screen and (max-width: 767px)";
 @screen-tiny-above: ~"screen and (min-width: 481px)";
 @screen-tiny: ~"screen and (max-width: 480px)";
@@ -579,7 +579,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
 // TITLE AND CLOSING SCREENS
 #panel0 .panel-inner {
-    @media @screen-small-above {
+    @media @screen-tiny-above {
         .clearfix();
         background: @shade-bg;
         border: 2px solid rgba(60,60,60,.6);
@@ -587,8 +587,10 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         position: absolute;
         top: 0;
         right: @audio-height;
-        bottom: @audio-height;
         left: @audio-height;
+    }
+    @media @screen-small-above {
+        bottom: @audio-height;
     }
 }
 #title-button {
@@ -623,7 +625,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         margin: 0 0 22px 0;
         font-size: 36px;
 
-        @media @screen-tiny-above { font-size: 42px; }
+        @media @screen-tiny-above { font-size: 64px; }
         @media @screen-small-above { font-size: 56px; }
         @media @screen-medium-above { font-size: 64px; }
         @media @screen-large-above { font-size: 70px; }
@@ -633,7 +635,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         margin: 0 0 33px 0;
         font-size: 14px;
 
-        @media @screen-tiny-above { font-size: 18px; }
+        @media @screen-tiny-above { font-size: 20px; }
         @media @screen-small-above { font-size: 20px; }
         @media @screen-medium-above { font-size: 22px; }
         @media @screen-large-above { font-size: 24px; }

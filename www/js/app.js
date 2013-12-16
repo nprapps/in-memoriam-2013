@@ -25,7 +25,7 @@ if (Modernizr.audio) {
 var active_slide = 0;
 var end_id;
 var end_cue;
-var mobile_breakpoint = 767;
+var mobile_breakpoint = 768;
 var num_slides;
 var pop;
 
