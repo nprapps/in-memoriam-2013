@@ -327,9 +327,11 @@ var handle_keypress = function(ev) {
 };
 
 var handle_full_screen = function() {
-    var element = document.body;
+//    var element = document.body;
+    var element = document.documentElement;
     var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
     requestMethod.call(element);
+    resize_slideshow();
 };
 
 var resize_slideshow = function() {
