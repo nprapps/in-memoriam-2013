@@ -248,6 +248,13 @@ var scroll_to_slide = function(id) {
      * Scroll horizontally to the correct slide position.
      */
 
+    // jump to top
+    // checking first if a change actually happened, 
+    // or else this will be called ALL THE TIME
+    if (id != active_slide) {
+        $b.scrollTop(0);
+    }
+
     // play_slide() doesn't get called during the long-playing of the file.
     // scroll_to_slide() does get called.
     // Track start/finish of a slide.
@@ -281,7 +288,7 @@ var scroll_to_slide = function(id) {
     } else if (id === 0) {
         $audio_nav.removeClass('animated fadeIn');
     }
-
+    
     return false;
 };
 
