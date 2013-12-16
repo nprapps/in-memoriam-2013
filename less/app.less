@@ -626,7 +626,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         margin: 0 0 22px 0;
         font-size: 36px;
 
-        @media @screen-tiny-above { font-size: 64px; }
+        @media @screen-tiny-above { font-size: 42px; }
         @media @screen-small-above { font-size: 56px; }
         @media @screen-medium-above { font-size: 64px; }
         @media @screen-large-above { font-size: 70px; }
@@ -742,14 +742,14 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 #sponsor-front {
     margin: 33px auto 0 auto;
     max-width: 300px;
-    border-top: 1px solid rgba(60,60,60,.6);
-    padding-top: 11px;
     .clearfix();
     
     @media @screen-small-above {
         max-width: none;
         width: 400px;
         margin-top: 55px;
+        border-top: 1px solid rgba(60,60,60,.6);
+        padding-top: 11px;
     }
     
     .sponsor-text {
