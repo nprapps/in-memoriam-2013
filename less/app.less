@@ -597,8 +597,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     text-decoration: none;
     text-shadow: @shadow;
     text-align: center;
-    margin: 20px;
     outline: 0;
+    margin: 0 20px 20px 20px;
 
     @media @screen-small-above {
         margin: 0;
@@ -621,8 +621,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         text-transform: uppercase;
         color: #fff;
         margin: 0 0 22px 0;
-        font-size: 42px;
+        font-size: 36px;
 
+        @media @screen-tiny-above { font-size: 42px; }
         @media @screen-small-above { font-size: 56px; }
         @media @screen-medium-above { font-size: 64px; }
         @media @screen-large-above { font-size: 70px; }
@@ -630,8 +631,9 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     h2 {
         line-height: 1.5;
         margin: 0 0 33px 0;
-        font-size: 18px;
+        font-size: 14px;
 
+        @media @screen-tiny-above { font-size: 18px; }
         @media @screen-small-above { font-size: 20px; }
         @media @screen-medium-above { font-size: 22px; }
         @media @screen-large-above { font-size: 24px; }
