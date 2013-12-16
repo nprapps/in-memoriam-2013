@@ -159,7 +159,7 @@ var load_slideshow_data = function() {
 
     $panels = $slide_wrap.find('.panel');
     $panel_images = $panels.find('.panel-bg');
-    
+
     $b.removeClass('loading');
     $('#title').addClass('animated fadeIn');
 
@@ -249,7 +249,7 @@ var scroll_to_slide = function(id) {
      */
 
     // jump to top
-    // checking first if a change actually happened, 
+    // checking first if a change actually happened,
     // or else this will be called ALL THE TIME
     if (id != active_slide) {
         $b.scrollTop(0);
@@ -261,12 +261,12 @@ var scroll_to_slide = function(id) {
 
     // Don't say we started the zero-th slide.
     if (parseInt(id, 0) > 0) {
-        _gaq.push(['_trackEvent', 'Audio', 'Started Artist', APP_CONFIG.PROJECT_NAME, id]);
+        _gaq.push(['_trackEvent', 'Audio', 'Started artist #' + id, APP_CONFIG.PROJECT_NAME, 1]);
     }
 
     // Don't say we completed the zero-th slide.
     if (parseInt((id-1), 0) > 0) {
-        _gaq.push(['_trackEvent', 'Audio', 'Completed Artist', APP_CONFIG.PROJECT_NAME, id-1]);
+        _gaq.push(['_trackEvent', 'Audio', 'Completed artist #' + (id-1), APP_CONFIG.PROJECT_NAME, 1]);
     }
 
     $.smoothScroll({
@@ -288,7 +288,7 @@ var scroll_to_slide = function(id) {
     } else if (id === 0) {
         $audio_nav.removeClass('animated fadeIn');
     }
-    
+
     return false;
 };
 
@@ -446,7 +446,7 @@ $(document).ready(function() {
     $('#title-button').on('click', function() {
         if (audio_supported) {
             $player.jPlayer('play');
-            _gaq.push(['_trackEvent', 'Audio', 'Started The Audio', APP_CONFIG.PROJECT_NAME, 0]);
+            _gaq.push(['_trackEvent', 'Audio', 'Started audio', APP_CONFIG.PROJECT_NAME, 0]);
         } else {
             goto_slide(1);
         }
