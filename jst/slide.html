@@ -3,7 +3,13 @@
     <div class="panel-description">
         <h2><%= artist.caps_first_name %> <%= artist.caps_last_name %></h2>
         <% if (artist.date_of_birth != '') { %>
-        <p class="dates"><%= artist.date_of_birth %> &mdash; <%= artist.date_of_death %></p>
+        <p class="dates">
+            <% if (artist.last_name == 'Ondar') { %>
+            1967
+            <% } else { %>
+            <%= artist.date_of_birth %> 
+            <% } %>
+            &mdash; <%= artist.date_of_death %></p>
         <% } %>
         <p class="desc"><strong><%= artist.also_known_as %></strong> <%= artist.description %></p>
 
