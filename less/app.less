@@ -603,6 +603,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     margin: 0 20px 20px 20px;
 
     @media @screen-small-above {
+        width: 90%;
         margin: 0;
         position: absolute;
         top: 50%;
@@ -637,7 +638,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
         @media @screen-tiny-above { font-size: 20px; }
         @media @screen-small-above { font-size: 20px; }
-        @media @screen-medium-above { font-size: 22px; }
+        @media @screen-medium-above { font-size: 20px; }
         @media @screen-large-above { font-size: 24px; }
     }
     h3 {
@@ -741,15 +742,36 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 #sponsor-front {
     margin: 33px auto 0 auto;
     max-width: 300px;
+    border-top: 1px solid rgba(60,60,60,.6);
+    padding-top: 11px;
     .clearfix();
+    
+    @media @screen-small-above {
+        max-width: none;
+        width: 400px;
+        margin-top: 55px;
+    }
     
     .sponsor-text {
         padding-top: 38px;
         font-size: 11px;
         .text-shadow(none);
+        
+        @media @screen-small-above {
+            text-align: right;
+            float: left;
+            width: 100px;
+        }
     }
-    .sponsor-img img {
-        max-width: 100%;
-        height: auto;
+    .sponsor-img {
+        @media @screen-small-above {
+            float: left;
+            width: 300px;
+        }
+    
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     }
 }
