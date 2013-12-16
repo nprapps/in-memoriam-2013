@@ -9,7 +9,7 @@
 
         <h3>Read / Listen</h3>
         <% if (artist.obit_URL.length > 2) { %>
-        <p class="npr-obit"><i class="fa fa-angle-right"></i><a rel="external" onclick="_gaq.push(['_trackEvent', 'Content', 'Click external link to <%= artist.slug %> obit.', '{{ PROJECT_NAME }}']);" href="<%= artist.obit_URL %>" target="_blank">NPR Remembrance: Audio, interviews, photos</a></p>
+        <p class="npr-obit"><i class="fa fa-angle-right"></i> <a rel="external" onclick="_gaq.push(['_trackEvent', 'Content', 'Click external link to <%= artist.slug %> obit.', '{{ PROJECT_NAME }}']);" href="<%= artist.obit_URL %>" target="_blank">NPR Remembrance: Audio, interviews, photos</a></p>
         <% } %>
 
         <% if (artist.artist_page_seamus_id.length > 2) { %>

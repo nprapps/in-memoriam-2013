@@ -593,7 +593,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         bottom: @audio-height;
     }
 }
-#title-button {
+#title-info {
     display: block;
     color: @text-gray;
     text-decoration: none;
@@ -652,13 +652,16 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         font-weight: bold;
         margin: 0;
         text-shadow: none;
-    }
-
-    &:hover h3 {
-        background-color: @nav-button-hover;
-        color: #fff;
+        .user-select(none);
+        
+        &:hover {
+            background-color: @nav-button-hover;
+            color: #fff;
+            cursor: pointer;
+        }
     }
 }
+
 .panel-end {
     text-shadow: @shadow;
     overflow-x: hidden;
@@ -737,7 +740,7 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 // SPONSORSHIP
 #sponsor-front {
     margin: 33px auto 0 auto;
-    width: 300px;
+    max-width: 300px;
     .clearfix();
     
     .sponsor-text {
@@ -745,6 +748,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         font-size: 11px;
         .text-shadow(none);
     }
-    .sponsor-img {
+    .sponsor-img img {
+        max-width: 100%;
+        height: auto;
     }
 }
