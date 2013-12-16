@@ -740,39 +740,52 @@ body, h1, h2, h3, h4, h5, h6, p, li {
 
 
 // SPONSORSHIP
-#sponsor-front {
-    margin: 44px auto 0 auto;
-    max-width: 300px;
+.sponsor {
     .clearfix();
-    
-    @media @screen-small-above {
-        max-width: none;
-        width: 400px;
-        margin-top: 55px;
-        border-top: 1px solid rgba(60,60,60,.6);
-        padding-top: 11px;
-    }
-    
+
     .sponsor-text {
         font-size: 11px;
+        color: #787878;
         .text-shadow(none);
-        
-        @media @screen-small-above {
-            text-align: right;
-            float: left;
-            width: 100px;
-            padding-top: 20px;
-        }
     }
     .sponsor-img {
-        @media @screen-small-above {
-            float: left;
-            width: 300px;
-        }
-    
         img {
             max-width: 100%;
             height: auto;
         }
+    }
+
+    &#sponsor-front {
+        margin: 44px auto 0 auto;
+        max-width: 300px;
+    
+        @media @screen-small-above {
+            max-width: none;
+            width: 400px;
+            margin-top: 55px;
+            border-top: 1px solid rgba(60,60,60,.6);
+            padding-top: 11px;
+        }
+    
+        .sponsor-text {
+            @media @screen-small-above {
+                text-align: right;
+                float: left;
+                width: 100px;
+                padding-top: 20px;
+            }
+        }
+        .sponsor-img {
+            @media @screen-small-above {
+                float: left;
+                width: 300px;
+            }
+        }
+    }
+
+    &#sponsor-back {
+        margin-bottom: 44px;
+
+        .sponsor-text { margin-bottom: 11px; }
     }
 }
