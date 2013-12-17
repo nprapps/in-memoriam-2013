@@ -30,7 +30,7 @@ def index():
         context['PEOPLE'] = readfile.read()
 
     try:
-        r = envoy.run('sox www/audio/in-memoriam.mp3 -n stat', timeout=5)
+        r = envoy.run('sox www/audio/in-memoriam-new.mp3 -n stat', timeout=5)
         context['AUDIO_LENGTH'] = int(r.std_err.split('\n')[1].replace('Length (seconds):', '').strip().split('.')[0])
         context['SOX_ALERT'] = False
     except AttributeError:
