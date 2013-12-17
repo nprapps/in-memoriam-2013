@@ -159,24 +159,24 @@ def configure_targets(deployment_target):
         SERVERS = PRODUCTION_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         DEBUG = False
-        MP3_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.mp3'
-        OGG_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.ogg'
+        MP3_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
     elif deployment_target == 'staging':
         S3_BUCKETS = STAGING_S3_BUCKETS
         S3_BASE_URL = 'http://%s/%s' % (S3_BUCKETS[0], PROJECT_SLUG)
         SERVERS = STAGING_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         DEBUG = True
-        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.mp3'
-        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.ogg'
+        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
     else:
         S3_BUCKETS = []
         S3_BASE_URL = 'http://127.0.0.1:8000'
         SERVERS = []
         SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
         DEBUG = True
-        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.mp3'
-        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam-new.ogg'
+        MP3_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'http://stage-apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
 
     DEPLOYMENT_TARGET = deployment_target
 
