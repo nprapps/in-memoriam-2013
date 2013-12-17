@@ -82,11 +82,11 @@ COPY_GOOGLE_DOC_KEY = '0AlXMOHKxzQVRdHZuX1UycXplRlBfLVB0UVNldHJYZmc'
 """
 SHARING
 """
-PROJECT_DESCRIPTION = 'An opinionated project template for (mostly) server-less apps.'
+PROJECT_DESCRIPTION = 'NPR Music remembers the musicians, composers, producers and other visionaries whom we lost in 2013.'
 SHARE_URL = 'http://%s/%s/' % (PRODUCTION_S3_BUCKETS[0], PROJECT_SLUG)
 
 TWITTER = {
-    'TEXT': PROJECT_NAME,
+    'TEXT': PROJECT_DESCRIPTION,
     'URL': SHARE_URL,
     # Will be resized to 120x120, can't be larger than 1MB
     'IMAGE_URL': '',
