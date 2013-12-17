@@ -89,7 +89,7 @@ TWITTER = {
     'TEXT': PROJECT_DESCRIPTION,
     'URL': SHARE_URL,
     # Will be resized to 120x120, can't be larger than 1MB
-    'IMAGE_URL': '',
+    'IMAGE_URL': 'http://%s/img/promo.png' % PRODUCTION_S3_BUCKETS[0],
     'HASHTAG': 'nprmusic2013'
 }
 
