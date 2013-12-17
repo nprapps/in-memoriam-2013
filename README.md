@@ -13,7 +13,7 @@ in-memoriam-2013
 * [Adding a template/view](#adding-a-templateview)
 * [Run the project locally](#run-the-project-locally)
 * [Editing workflow](#editing-workflow)
-* [Processing audio](#processing-audio)
+* [Process audio](#process-audio)
 * [Run Javascript tests](#run-javascript-tests)
 * [Run Python tests](#run-python-tests)
 * [Compile static assets](#compile-static-assets)
@@ -27,7 +27,7 @@ in-memoriam-2013
 What is this?
 -------------
 
-**Describe in-memoriam-2013 here.**
+This is an audio slideshow highlighting musicians and other prominent figures in the music community who died in 2013. It uses HTML5 audio ([jPlayer](http://jplayer.org/)) synced to cuepoints/events via [Popcorn.js](http://popcornjs.org/).
 
 Assumptions
 -----------
