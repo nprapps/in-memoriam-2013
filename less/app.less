@@ -25,7 +25,7 @@
 @screen-medium: ~"screen and (max-width: 979px)";
 @screen-small-above: ~"screen and (min-width: 769px)";
 @screen-small-only: ~"screen and (min-width: 481px) and (max-width: 768px)";
-@screen-small: ~"screen and (max-width: 767px)";
+@screen-small: ~"screen and (max-width: 768px)";
 @screen-tiny-above: ~"screen and (min-width: 481px)";
 @screen-tiny: ~"screen and (max-width: 480px)";
 
@@ -471,7 +471,8 @@ body, h1, h2, h3, h4, h5, h6, p, li {
     .panel-chris-kelly &,
     .panel-kongarol-ondar &,
     .panel-janos-starker & { background-position: 50% 20%; }
-    .panel-albert-murray &  { background-position: 50% 30%; }
+    .panel-albert-murray,
+    .panel-ray-price &  { background-position: 50% 30%; }
     .panel-james-depreist & { background-position: 50% 35%; }
     .panel-colin-davis & { background-position: 50% 40%; }
     .panel-jim-hall & { background-position: 50% 45%; }
@@ -789,27 +790,27 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         .sponsor-text { margin-bottom: 11px; }
         .sponsor-img a {
             background-color: #000;
-            display: none;
-
-            @media @screen-small-above {
-                &.img980 { display: block; }
-                &.img768, 
-                &.img320 { display: none; }
-            }
-            @media @screen-small {
-                &.img768 { display: block; }
-                &.img320, 
-                &.img980 { display: none; }
-            }
-            @media @screen-tiny {
-                &.img320 { display: block; }
-                &.img768, 
-                &.img980 { display: none; }
-            }
-
-            img { 
+            display: block;
+            
+            img {
                 margin: 0 auto;
                 display: block;
+
+                @media @screen-small-above {
+                    &.img980 { display: block; }
+                    &.img768, 
+                    &.img320 { display: none; }
+                }
+                @media @screen-small {
+                    &.img768 { display: block; }
+                    &.img320, 
+                    &.img980 { display: none; }
+                }
+                @media @screen-tiny {
+                    &.img320 { display: block; }
+                    &.img768, 
+                    &.img980 { display: none; }
+                }
             }
         }
     }
