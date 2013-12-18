@@ -789,27 +789,27 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         .sponsor-text { margin-bottom: 11px; }
         .sponsor-img a {
             background-color: #000;
-            display: none;
-
-            @media @screen-small-above {
-                &.img980 { display: block; }
-                &.img768, 
-                &.img320 { display: none; }
-            }
-            @media @screen-small {
-                &.img768 { display: block; }
-                &.img320, 
-                &.img980 { display: none; }
-            }
-            @media @screen-tiny {
-                &.img320 { display: block; }
-                &.img768, 
-                &.img980 { display: none; }
-            }
-
-            img { 
+            display: block;
+            
+            img {
                 margin: 0 auto;
                 display: block;
+
+                @media @screen-small-above {
+                    &.img980 { display: block; }
+                    &.img768, 
+                    &.img320 { display: none; }
+                }
+                @media @screen-small {
+                    &.img768 { display: block; }
+                    &.img320, 
+                    &.img980 { display: none; }
+                }
+                @media @screen-tiny {
+                    &.img320 { display: block; }
+                    &.img768, 
+                    &.img980 { display: none; }
+                }
             }
         }
     }
