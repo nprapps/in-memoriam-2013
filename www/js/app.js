@@ -417,7 +417,7 @@ var track_ad_click = function(e) {
     render_tracking_pixel('http://ad.doubleclick.net/jump/n6735.NPR/music_in_memoriam;sz=1x1;');
 
     setTimeout(function() {
-       window.location.href = 'http://smarturl.it/SinatraDuetsG';
+       window.open('http://smarturl.it/SinatraDuetsG', '_blank');
     }, 300);
 
     return false;
