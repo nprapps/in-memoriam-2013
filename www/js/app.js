@@ -261,13 +261,17 @@ var scroll_to_slide = function(id) {
     // Track start/finish of a slide.
 
     // Don't say we started the zero-th slide.
-    if (parseInt(id, 0) > 0) {
+    if (parseInt(id) > 0) {
         _gaq.push(['_trackEvent', 'Audio', 'Started artist #' + id, APP_CONFIG.PROJECT_NAME, 1]);
     }
 
     // Don't say we completed the zero-th slide.
-    if (parseInt((id-1), 0) > 0) {
+    if (parseInt(id - 1) > 0) {
         _gaq.push(['_trackEvent', 'Audio', 'Completed artist #' + (id-1), APP_CONFIG.PROJECT_NAME, 1]);
+    }
+
+    if (parseInt(id) == num_slides - 1) {
+        render_last_slide_tracking_pixel();
     }
 
     $.smoothScroll({
@@ -397,18 +401,27 @@ var resize_header = function() {
     }
 };
 
-function track_ad_click(e) {
+var render_tracking_pixel = function(url) {
+    var ord = Math.floor(Math.random() * 10e12);
+    var $tracking_pixel = $('<img src="' + url + 'ord=' + ord + '?" />');
+    $b.append($tracking_pixel);
+};
+
+var render_last_slide_tracking_pixel = _.once(function() {
+    render_tracking_pixel('http://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam;sz=1x1;')
+});
+
+var track_ad_click = function(e) {
     e.preventDefault();
 
-    var $tracking_pixel = $('<img src="http://ad.doubleclick.net/jump/n6735.NPR/music_in_memoriam;sz=1x1;" />');
-    $b.append($tracking_pixel);
+    render_tracking_pixel('http://ad.doubleclick.net/jump/n6735.NPR/music_in_memoriam;sz=1x1;');
 
     setTimeout(function() {
        window.location.href = 'http://smarturl.it/SinatraDuetsG';
     }, 300);
 
     return false;
-}
+};
 
 $(document).ready(function() {
     num_slides = PEOPLE.length + 2;
@@ -490,4 +503,7 @@ $(document).ready(function() {
     });
 
     load_slideshow_data();
+
+    // Load first ad tracking pixel
+    render_tracking_pixel('http://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam_front;sz=1x1;');
 });
