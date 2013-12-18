@@ -26,6 +26,7 @@ if (Modernizr.audio) {
 var active_slide = 0;
 var end_id;
 var end_cue;
+var end_offset = 30;
 var mobile_breakpoint = 768;
 var num_slides;
 var pop;
@@ -54,6 +55,12 @@ var ap_date = function(mmnt) {
     return out;
 };
 
+var convert_to_seconds = function(cue) {
+    // Format in data is 'M:SS:MS'
+    // Needs to be 'M:SS'
+    return Popcorn.util.toSeconds(String(cue).substring(0, 4));
+}
+
 var load_slideshow_data = function() {
     /*
      * Load slideshow data from external JSON
@@ -62,16 +69,29 @@ var load_slideshow_data = function() {
     var audio_html = '';
     var browse_html = '';
     var end_list_html = '';
+    var pct_total = 0;
 
     _.each(PEOPLE, function(person, index, list){
+        var segment_length;
+        var segment_pct;
+
         person['id'] = index + 1;
 
-        // Format in data is 'M:SS:MS'
-        // Needs to be 'M:SS'
-        person.start_time_in_mix = Popcorn.util.toSeconds(person.start_time_in_mix.substring(0, 4));
-
+        person.start_time_in_mix = convert_to_seconds(person.start_time_in_mix);
         person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
-
+        
+        if (list[index + 1]) {
+            segment_length = convert_to_seconds(list[index + 1].start_time_in_mix) - person.start_time_in_mix;
+        } else {
+            // is the last artist
+            segment_length = (AUDIO_LENGTH - end_offset) - person.start_time_in_mix;
+        }
+        segment_pct = parseInt((segment_length / AUDIO_LENGTH) * 100, 0);
+        pct_total += segment_pct;
+        
+        person.segment_length = segment_length;
+        person.segment_pct = segment_pct;
+        
         if ($content.width() <= 480) {
             person['image_width'] = 480;
         } else if ($content.width() <= 979) {
@@ -109,7 +129,7 @@ var load_slideshow_data = function() {
 
     // rename the closing slides with the correct ID numbers
     end_id = num_slides - 1;
-    end_cue = AUDIO_LENGTH - 30;
+    end_cue = AUDIO_LENGTH - end_offset;
 
     if (audio_supported) {
         pop.code({
@@ -135,6 +155,7 @@ var load_slideshow_data = function() {
     $('#send').attr('id','s' + end_id);
     $('#s' + end_id).attr('data-id', end_id);
     $('#s' + end_id).css('left',((end_cue / AUDIO_LENGTH) * 100) + '%');
+    $('#s' + end_id).width(parseInt(((end_offset / AUDIO_LENGTH) * 100), 0) + '%');
     $('#panelend').attr('id','panel' + end_id);
 
     $slide_nav.find('.slide-nav-item').hover(function() {

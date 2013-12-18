@@ -135,11 +135,11 @@ body, h1, h2, h3, h4, h5, h6, p, li {
         width: 6px; height: 6px;
         background-color: @nav-border;
         border-radius: 3px;
-        margin: ((@audio-height - 6px) / 2) auto 0 auto;
+        margin: ((@audio-height - 6px) / 2) 0 0 0;
         text-indent: -9999px;
     }
 
-    &:hover, &.active { background-color: @nav-button-hover; }
+    &:hover { background-color: @nav-button-hover; }
     &:hover span, &.active span { background-color: @text-gray; }
 }
 #tooltip {
