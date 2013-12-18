@@ -37,32 +37,6 @@
     {% block extra_head_js %}{% endblock extra_head_js %}
     {{ JS.render('js/app-header.min.js') }}
 
-    <script type='text/javascript'>
-    var googletag = googletag || {};
-    googletag.cmd = googletag.cmd || [];
-    (function() {
-    var gads = document.createElement('script');
-    gads.async = true;
-    gads.type = 'text/javascript';
-    var useSSL = 'https:' == document.location.protocol;
-    gads.src = (useSSL ? 'https:' : 'http:') + 
-    '//www.googletagservices.com/tag/js/gpt.js';
-    var node = document.getElementsByTagName('script')[0];
-    node.parentNode.insertBefore(gads, node);
-    })();
-    </script>
-
-    <script type='text/javascript'>
-    googletag.cmd.push(function() {
-        googletag.defineSlot('/6735/n6735.{{ NPR_DFP.ENVIRONMENT }}/{{ NPR_DFP.TARGET }}', [980,100], 'ad-desktop').addService(googletag.pubads());
-        googletag.pubads().setTargeting('storyId', '{{ NPR_DFP.STORY_ID }}');
-        googletag.pubads().setTargeting('testserver', '{{ NPR_DFP.TESTSERVER }}');
-        googletag.pubads().enableSingleRequest();
-        googletag.pubads().enableVideoAds();
-        googletag.enableServices();
-    });
-    </script>
-
     {# Twitter #}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@nprapps">
