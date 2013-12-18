@@ -89,7 +89,7 @@ TWITTER = {
     'TEXT': PROJECT_DESCRIPTION,
     'URL': SHARE_URL,
     # Will be resized to 120x120, can't be larger than 1MB
-    'IMAGE_URL': 'http://%s/%s/img/promo.png' % (PRODUCTION_S3_BUCKETS[0], PROJECT_SLUG),
+    'IMAGE_URL': 'http://%s/%s/img/promo-twitter.png' % (PRODUCTION_S3_BUCKETS[0], PROJECT_SLUG),
     'HASHTAG': 'nprmusic2013'
 }
 
@@ -98,7 +98,7 @@ FACEBOOK = {
     'URL': SHARE_URL,
     'DESCRIPTION': PROJECT_DESCRIPTION,
     # Should be square. No documented restrictions on size
-    'IMAGE_URL': TWITTER['IMAGE_URL'],
+    'IMAGE_URL': 'http://%s/%s/img/promo-facebook.png' % (PRODUCTION_S3_BUCKETS[0], PROJECT_SLUG),
     'APP_ID': '138837436154588'
 }
 
