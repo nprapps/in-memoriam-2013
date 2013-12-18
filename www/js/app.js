@@ -83,7 +83,6 @@ var load_slideshow_data = function() {
 
         person.start_time_in_mix = convert_to_seconds(person.start_time_in_mix);
         person.position = round_it(person.start_time_in_mix / AUDIO_LENGTH);
-        console.log(person.position);
         
         if (list[index + 1]) {
             segment_length = convert_to_seconds(list[index + 1].start_time_in_mix) - person.start_time_in_mix;
@@ -439,8 +438,6 @@ var render_last_slide_tracking_pixel = _.once(function() {
 
 var track_ad_click = function(e) {
     e.preventDefault();
-
-    console.log(e);
 
     render_tracking_pixel(e.data.url);
 
