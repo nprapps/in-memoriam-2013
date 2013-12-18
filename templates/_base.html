@@ -54,12 +54,13 @@
 
     <script type='text/javascript'>
     googletag.cmd.push(function() {
-    googletag.defineSlot('/6735/n6735.{{ NPR_DFP.ENVIRONMENT }}/{{ NPR_DFP.TARGET }}', [980,100], 'ad-desktop').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.pubads().enableVideoAds();
-    googletag.enableServices();
+        googletag.defineSlot('/6735/n6735.{{ NPR_DFP.ENVIRONMENT }}/{{ NPR_DFP.TARGET }}', [980,100], 'ad-desktop').addService(googletag.pubads());
+        googletag.pubads().setTargeting('storyId', '{{ NPR_DFP.STORY_ID }}');
+        googletag.pubads().setTargeting('testserver', '{{ NPR_DFP.TESTSERVER }}');
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().enableVideoAds();
+        googletag.enableServices();
     });
-    googletag.pubads().setTargeting('storyId','{{ NPR_DFP.STORY_ID }}');
     </script>
 
     {# Twitter #}
