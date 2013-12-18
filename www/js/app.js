@@ -61,6 +61,10 @@ var convert_to_seconds = function(cue) {
     return Popcorn.util.toSeconds(String(cue).substring(0, 4));
 }
 
+var round_it = function(num) {
+    return Math.round((num) * 1000) / 10;
+}
+
 var load_slideshow_data = function() {
     /*
      * Load slideshow data from external JSON
@@ -78,7 +82,8 @@ var load_slideshow_data = function() {
         person['id'] = index + 1;
 
         person.start_time_in_mix = convert_to_seconds(person.start_time_in_mix);
-        person.position = parseInt((person.start_time_in_mix / AUDIO_LENGTH) * 100, 0);
+        person.position = round_it(person.start_time_in_mix / AUDIO_LENGTH);
+        console.log(person.position);
         
         if (list[index + 1]) {
             segment_length = convert_to_seconds(list[index + 1].start_time_in_mix) - person.start_time_in_mix;
@@ -86,7 +91,7 @@ var load_slideshow_data = function() {
             // is the last artist
             segment_length = (AUDIO_LENGTH - end_offset) - person.start_time_in_mix;
         }
-        segment_pct = parseInt((segment_length / AUDIO_LENGTH) * 100, 0);
+        segment_pct = round_it(segment_length / AUDIO_LENGTH);
         pct_total += segment_pct;
         
         person.segment_length = segment_length;
@@ -155,7 +160,7 @@ var load_slideshow_data = function() {
     $('#send').attr('id','s' + end_id);
     $('#s' + end_id).attr('data-id', end_id);
     $('#s' + end_id).css('left',((end_cue / AUDIO_LENGTH) * 100) + '%');
-    $('#s' + end_id).width(parseInt(((end_offset / AUDIO_LENGTH) * 100), 0) + '%');
+    $('#s' + end_id).width(round_it(end_offset / AUDIO_LENGTH) + '%');
     $('#panelend').attr('id','panel' + end_id);
 
     $slide_nav.find('.slide-nav-item').hover(function() {
