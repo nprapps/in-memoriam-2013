@@ -17,6 +17,7 @@ var $tooltip;
 var $panels;
 var $panel_images;
 var $full_screen_button;
+var $ad_link;
 
 var audio_supported = false;
 if (Modernizr.audio) {
@@ -396,6 +397,19 @@ var resize_header = function() {
     }
 };
 
+function track_ad_click(e) {
+    e.preventDefault();
+
+    var $tracking_pixel = $('<img src="http://ad.doubleclick.net/jump/n6735.NPR/music_in_memoriam;sz=1x1;" />');
+    $b.append($tracking_pixel);
+
+    setTimeout(function() {
+       window.location.href = 'http://smarturl.it/SinatraDuetsG';
+    }, 300);
+
+    return false;
+}
+
 $(document).ready(function() {
     num_slides = PEOPLE.length + 2;
 
@@ -416,6 +430,7 @@ $(document).ready(function() {
     $titlecard = $('#panel0');
     $tooltip = $('#tooltip');
     $full_screen_button = $('#full-screen');
+    $ad_link = $('.ad-link');
 
     if (!audio_supported) { $audio.hide(); }
 
@@ -456,6 +471,7 @@ $(document).ready(function() {
 
     $next.on('click', goto_next_slide);
     $back.on('click', goto_previous_slide);
+    $ad_link.on('click', track_ad_click);
 
     $(document).on('keydown', function(ev) { handle_keypress(ev); });
 
