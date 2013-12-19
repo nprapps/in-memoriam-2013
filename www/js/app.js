@@ -38,7 +38,11 @@ var ap_date = function(mmnt) {
      */
     var out = mmnt.format('MMM');
 
-    if (mmnt.month() == 4) {
+    if (mmnt.month() == 2) {
+        out = 'March';
+    } else if (mmnt.month() == 3) {
+        out = 'April';
+    } else if (mmnt.month() == 4) {
         // May
     } else if (mmnt.month() == 5) {
         out = 'June';
