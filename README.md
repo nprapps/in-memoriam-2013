@@ -13,7 +13,7 @@ in-memoriam-2013
 * [Adding a template/view](#adding-a-templateview)
 * [Run the project locally](#run-the-project-locally)
 * [Editing workflow](#editing-workflow)
-* [Process audio](#process-audio)
+* [Audio](#audio)
 * [Run Javascript tests](#run-javascript-tests)
 * [Run Python tests](#run-python-tests)
 * [Compile static assets](#compile-static-assets)
@@ -158,8 +158,8 @@ You may also access rows using iterators. In this case, the column headers of th
 {% endfor %}
 ```
 
-Process audio
--------------
+Audio
+-----
 
 We found that audio encoded with VBR can produce [issues with audio syncing](https://github.com/nprapps/in-memoriam-2013/issues/104) and Popcorn cuepoints. We're [using CBR instead](https://github.com/nprapps/in-memoriam-2013/issues/35), with these settings:
 
@@ -167,6 +167,8 @@ We found that audio encoded with VBR can produce [issues with audio syncing](htt
 lame -m m -b 96 in-memoriam.wav
 oggenc -m 96 -M 96 -o in-memoriam.ogg --downmix in-memoriam.wav
 ```
+
+Also, when you link to your audio files, use absolute links published to a server rather than relative local links. Otherwise, you may notice issues in Chrome with audio playback, particularly related to cuepoints.
 
 
 Run Javascript tests
