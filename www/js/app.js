@@ -437,7 +437,7 @@ var render_tracking_pixel = function(url) {
 };
 
 var render_last_slide_tracking_pixel = _.once(function() {
-    render_tracking_pixel('http://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam;sz=1x1;')
+    render_tracking_pixel('https://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam;sz=1x1;')
 });
 
 $(document).ready(function() {
@@ -522,5 +522,5 @@ $(document).ready(function() {
     load_slideshow_data();
 
     // Load first ad tracking pixel
-    render_tracking_pixel('http://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam_front;sz=1x1;');
+    render_tracking_pixel('https://ad.doubleclick.net/ad/n6735.NPR/music_in_memoriam_front;sz=1x1;');
 });

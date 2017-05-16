@@ -77,7 +77,7 @@ DEBUG = True
 """
 COPY EDITING
 """
-COPY_GOOGLE_DOC_KEY = '0AlXMOHKxzQVRdHZuX1UycXplRlBfLVB0UVNldHJYZmc'
+COPY_GOOGLE_DOC_KEY = '1Hm9kywLuNhqZ6-1odS5RdvHDjuSYNgKSG1ZOOXQzS_8'
 
 """
 SHARING
@@ -155,12 +155,12 @@ def configure_targets(deployment_target):
 
     if deployment_target == 'production':
         S3_BUCKETS = PRODUCTION_S3_BUCKETS
-        S3_BASE_URL = 'http://%s/%s' % (S3_BUCKETS[0], PROJECT_SLUG)
+        S3_BASE_URL = 'https://%s/%s' % (S3_BUCKETS[0], PROJECT_SLUG)
         SERVERS = PRODUCTION_SERVERS
         SERVER_BASE_URL = 'http://%s/%s' % (SERVERS[0], PROJECT_SLUG)
         DEBUG = False
-        MP3_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
-        OGG_LINK = 'http://apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
+        MP3_LINK = 'https://apps.npr.org/music-memoriam-2013/audio/in-memoriam.mp3'
+        OGG_LINK = 'https://apps.npr.org/music-memoriam-2013/audio/in-memoriam.ogg'
     elif deployment_target == 'staging':
         S3_BUCKETS = STAGING_S3_BUCKETS
         S3_BASE_URL = 'http://%s/%s' % (S3_BUCKETS[0], PROJECT_SLUG)
