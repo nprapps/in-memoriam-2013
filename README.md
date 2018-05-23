@@ -78,8 +78,8 @@ Then install the project requirements:
 
 ```
 cd in-memoriam-2013
-npm install less universal-jst -g --prefix node_modules
-mkvirtualenv --no-site-packages in-memoriam-2013
+npm install
+mkvirtualenv in-memoriam-2013
 pip install -r requirements.txt
 ```
 

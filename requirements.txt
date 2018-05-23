@@ -4,7 +4,7 @@ Jinja2==2.6
 Werkzeug==0.8.3
 apiclient==1.0.2
 argparse==1.2.1
-cssmin==0.1.4
+cssmin==0.2.0
 dateutils==0.6.6
 dulwich==0.9.1
 envoy==0.0.2
@@ -12,7 +12,7 @@ nose==1.2.1
 oauth2client==1.2
 odict==1.5.1
 ply==3.4
-psycopg2==2.5.1
+psycopg2==2.7.4
 pycrypto==2.6
 python-dateutil==2.2
 pytz==2013.8
