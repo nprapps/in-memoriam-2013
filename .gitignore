@@ -38,7 +38,6 @@ www/js/*.min.js
 www/js/templates.js
 www/js/app_config.js
 confs/rendered/*
-data/copy.xls
 tumblr-theme.html
 www/live-data/*.json
 data/*.csv
